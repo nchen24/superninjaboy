@@ -1,0 +1,4 @@
+As of 5:19PM 3/6/2012, this program does the following:
+    If the player is not on the bottom of the screen, they will fall down.
+    If the left or right key is pressed, the player will go in that direction.
+    If space is held, the player will go up until the space bar is released.

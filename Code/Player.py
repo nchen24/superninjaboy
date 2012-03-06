@@ -40,26 +40,14 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(self.image, (self.x, self.y))
 
     def update(self, pressed, screenDimensions):
-
         if pressed['Space'] == True:
-            self.jumptimer = self.jumptimer + 1
-            if self.jumptimer == 10:
-                self.apex = True
-            if not self.apex:
-                print "!!"
-                self.dy = -1.5
-            else:
-                self.dy = 0
-                self.jumptimer = 0
-                #self.jumped = False
-        if self.jumptimer > 20:
-            self.jumptimer = 0
-            self.jumped = False
-            self.dy = 0
-        if self.rect.bottomright[1] < screenDimensions[1] :
+            self.dy = -1.5
+            self.jumped = True
+        elif self.rect.bottomright[1] < screenDimensions[1] :
             self.dy = 1
         else:
             self.dy = 0
+            self.jumped = False
         
         if pressed['Left'] == True:
             if abs(self.dx) < self.dx_max:
@@ -77,6 +65,5 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
-
-
+    #def jump(self):
 
