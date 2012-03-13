@@ -30,19 +30,19 @@ while True:
                 quit()
             if event.key == K_LEFT:
                 pressed['Left'] = True
-            elif event.key == K_RIGHT:
+            if event.key == K_RIGHT:
                 pressed['Right'] = True
-            elif event.key == K_LSHIFT:
+            if event.key == K_LSHIFT:
                 pressed['Shift'] = True
-            elif event.key == K_SPACE:
+            if event.key == K_SPACE:
                 pressed['Space'] = True
         elif event.type == KEYUP:
             if event.key == K_LEFT:
                 pressed['Left'] = False
-            elif event.key == K_RIGHT:
+            if event.key == K_RIGHT:
                 pressed['Right'] = False
-            elif event.key == K_LSHIFT:
+            if event.key == K_LSHIFT:
                 pressed['Shift'] = False
-            elif event.key == K_SPACE:
+            if event.key == K_SPACE:
                 pressed['Space'] = False
 
