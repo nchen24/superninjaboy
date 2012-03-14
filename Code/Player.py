@@ -16,6 +16,7 @@ RUNN2 = "../assets/running_2.gif"
 RUNN3 = "../assets/running_3.gif"
 RUNN4 = "../assets/running_4.gif"
 SLID1 = "../assets/wall_slide.gif"
+PLAT1 = "../assets/platform1.png"
 
 #################
 # Player Sprite #
@@ -48,6 +49,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
+        self.bottom = pygame.Rect((self.x,(self.y + self.image_h - 5)), (self.image_w, 5))
+
         # pygame.Rect takes ((start_x, start_y), (width, height))[EXPERIMENTAL]
         self.boundwidth = 5
         self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h))
@@ -60,6 +63,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = "Right"
         self.movetimer = 0
         self.runtimer  = 0
+        self.onplat = False
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -74,7 +78,7 @@ class Player(pygame.sprite.Sprite):
             self.loadImage(JUMP1)
             self.dy = -.8
 
-        elif self.rect.bottomright[1] < screenDimensions[1]:
+        elif self.rect.bottomright[1] < screenDimensions[1] and self.onplat == False:
             self.loadImage(FALL1)
             self.dy = .8
         else:
@@ -124,6 +128,8 @@ class Player(pygame.sprite.Sprite):
 
         self.right.top = self.right.top + self.dy
         self.right.left = self.right.left + self.dx
+
+        self.bottom = pygame.Rect((self.x,(self.y + self.image_h - 5)), (self.image_w, 5))
 
     # Determines which walking animation to load.
     def whichWalk(self):
