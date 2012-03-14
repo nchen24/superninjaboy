@@ -4,9 +4,18 @@ from pygame.locals import *
 ###############################
 # Constants for image loading #
 ###############################
-IDLE = "../assets/idle.gif"
-FALL = "../assets/fall.gif"
-JUMP = "../assets/jump.gif"
+IDLE1 = "../assets/idle.gif"
+FALL1 = "../assets/fall.gif"
+JUMP1 = "../assets/jump.gif"
+WALK1 = "../assets/walking_1.gif"
+WALK2 = "../assets/walking_2.gif"
+WALK3 = "../assets/walking_3.gif"
+WALK4 = "../assets/walking_4.gif"
+RUNN1 = "../assets/running_1.gif"
+RUNN2 = "../assets/running_2.gif"
+RUNN3 = "../assets/running_3.gif"
+RUNN4 = "../assets/running_4.gif"
+SLID1 = "../assets/wall_slide.gif"
 
 #################
 # Player Sprite #
@@ -22,7 +31,7 @@ class Player(pygame.sprite.Sprite):
         return image.convert_alpha()
 
     def __init__(self, screen, x, y):
-        self.image = self.load_image(IDLE)
+        self.image = self.load_image(IDLE1)
         self.screen = screen
         self.x   = x
         self.y   = y
@@ -68,24 +77,22 @@ class Player(pygame.sprite.Sprite):
                 self.jumptimer += 1
 
             if self.direction == "Right":
-                self.image = self.load_image(JUMP)
-                self.dy = -.8
+                self.image = self.load_image(JUMP1)
             elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image(JUMP), True, False)
-                self.dy = -.8
+                self.image = pygame.transform.flip(self.load_image(JUMP1), True, False)
+            self.dy = -.8
 
         elif self.rect.bottomright[1] < screenDimensions[1]:
             if self.direction == "Right":
-                self.image = self.load_image(FALL)
-                self.dy = .8 
+                self.image = self.load_image(FALL1)
             elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image(FALL), True, False)
-                self.dy = .8
+                self.image = pygame.transform.flip(self.load_image(FALL1), True, False)
+            self.dy = .8
         else:
             if self.direction == "Right":
-                self.image = self.load_image(IDLE)
+                self.image = self.load_image(IDLE1)
             elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image(IDLE), True, False)
+                self.image = pygame.transform.flip(self.load_image(IDLE1), True, False)
             self.dy = 0
             self.jumped = False
             self.apex = False
