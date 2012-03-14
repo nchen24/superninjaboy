@@ -2,12 +2,16 @@ import pygame, sys, os, Player
 from pygame.locals import *
 from Player import *
 
+# Constants
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
 def quit():
     pygame.quit()
     sys.exit(0)
 
 pygame.init()
-screenDimensions = (800, 600)
+screenDimensions = (1200, 700)
 window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
@@ -18,7 +22,7 @@ snb = Player(screen, 350, 300)
 pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
 
 while True:
-    screen.fill((0,0,0))
+    screen.fill(WHITE)
 
     snb.update(pressed, screenDimensions)
     snb.draw()

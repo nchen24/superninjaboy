@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         return image.convert_alpha()
 
     def __init__(self, screen, x, y):
-        self.image = self.load_image("battlecruiser.gif")
+        self.image = self.load_image("../assets/idle.gif")
         self.screen = screen
         self.x   = x
         self.y   = y
@@ -23,8 +23,8 @@ class Player(pygame.sprite.Sprite):
         self.dy  = 0
         self.ddx = .1
         self.ddy = 0
-        self.dx_max = 1.5
-        self.dy_max = 1.5
+        self.dx_max = .8
+        self.dy_max = .8
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()
