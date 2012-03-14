@@ -53,16 +53,22 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(self.image, (self.x, self.y))
 
     def update(self, pressed, screenDimensions):
-        if pressed['Space'] == True and self.jumped == False:
+        if pressed['Space'] == True and not(self.jumped) and not(self.apex):
+            if self.jumptimer > 100:
+                self.apex = True
+            else:
+                self.jumptimer += 1
             self.image = self.load_image("../assets/jump.gif")
-            self.dy = -.5
+            self.dy = -.8
         elif self.rect.bottomright[1] < screenDimensions[1]:
             self.image = self.load_image("../assets/fall.gif")
-            self.dy = .5 
+            self.dy = .8 
         else:
             self.image = self.load_image("../assets/idle.gif")
             self.dy = 0
             self.jumped = False
+            self.apex = False
+            self.jumptimer = 0
         
         if pressed['Left'] == True:
             if pressed ['Right'] == True:
