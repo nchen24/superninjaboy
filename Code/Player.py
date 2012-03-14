@@ -23,6 +23,7 @@ PLAT1 = "../assets/platform1.png"
 ###################
 ONEFRAME  = 20
 JUMPLIMIT = 100
+SPRINTMOD = 2
 
 #################
 # Player Sprite #
@@ -64,7 +65,7 @@ class Player(pygame.sprite.Sprite):
 
         self.alive = True
         self.jumped = False
-        self.apex = False
+        self.apex = False # True if the player has reached the max jump height
         self.jumptimer = 0
         self.direction = "Right"
         self.movetimer = 0
@@ -96,8 +97,14 @@ class Player(pygame.sprite.Sprite):
         
         if pressed['Left'] == True:
             self.direction = "Left"
-            if abs(self.dx) < self.dx_max:
-                self.dx = self.dx - self.ddx
+            if pressed['Shift'] == True: 
+                if abs(self.dx) < SPRINTMOD*self.dx_max:
+                    self.dx = self.dx - self.ddx
+            else:
+                if abs(self.dx) > self.dx_max:
+                    self.dx = -self.dx_max
+                if abs(self.dx) < self.dx_max:
+                    self.dx = self.dx - self.ddx
             if pressed ['Right'] == True:
                 self.dx = 0 
             elif pressed ['Space'] == False:
@@ -109,8 +116,14 @@ class Player(pygame.sprite.Sprite):
 
         elif pressed['Right'] == True:
             self.direction = "Right"
-            if abs(self.dx) < self.dx_max:
-                self.dx = self.dx + self.ddx
+            if pressed['Shift'] == True:
+                if abs(self.dx) < SPRINTMOD*self.dx_max:
+                    self.dx = self.dx + self.ddx
+            else:
+                if abs(self.dx) > self.dx_max:
+                    self.dx = self.dx_max
+                if abs(self.dx) < self.dx_max:
+                    self.dx = self.dx + self.ddx
             if pressed ['Left'] == True:
                 self.dx = 0 
             elif pressed ['Space'] == False:

@@ -1,3 +1,41 @@
+March 14th 2012 13:43
+    -Added constants to make tweaking jump height and animation speed easier
+
+March 14th 2012 13:34
+    -Added some simple platforms to jump onto
+    -Fixed bug where falling while pressing a direction key would display the
+     walking/running animation rather than the falling one
+
+March 14th 2012 00:33
+    -Moved walk and run animations to separate functions.  Timing still needs
+     adjusting.
+
+March 14th 2012 00:26
+    -Added running and walking animations.  Timing needs tweaking.  Also, move
+     to separate function?
+
+March 14th 2012 00:05
+    -Moved all image loading to a separate function to improve readability
+
+March 13th 2012 23:53
+    -Renamed constant names
+    -Added constants for all sprites (walk, run and slide are not yet
+     implemented)
+
+March 13th 2012 23:47
+    -Added flipping model for directionality
+    -Added constants for image names for readability
+
+March 13th 2012 23:23
+    -Added timer to jump; you can jump for no more than 100 update cycles.
+
+March 13th 2012 23:14
+    -Added jump and fall animations.
+
+March 13th 2012 23:07
+    -When the player jumps, they can only jump once before hitting the ground
+     again.
+
 March 13th 2012 22:56
     -Changed to 1200x700 resolution
     -Changed to N+ sprite

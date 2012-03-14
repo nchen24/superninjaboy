@@ -21,19 +21,20 @@ screen = pygame.display.get_surface()
 background = pygame.Surface(screen.get_size())
 
 # The player
-snb = Player(screen, 350, 300)
+snb = Player(screen, 350, 500)
 pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
 plat1 = Platform(screen, PLAT1, 400, 650)
 plat2 = Platform(screen, PLAT2, 600, 600)
+plat3 = Platform(screen, PLAT2, 100, 600)
 
 while True:
     screen.fill(WHITE)
 
-    if plat1.top.colliderect(snb.bottom) == True or plat2.top.colliderect(snb.bottom)== True:
+    if plat1.top.colliderect(snb.bottom) or plat2.top.colliderect(snb.bottom) or plat3.top.colliderect(snb.bottom):
         snb.dy = 0
         snb.jumped = False
         snb.jumptimer = 0
-        snb.apex = 0
+        snb.apex = False 
         snb.onplat = True
     else: snb.onplat = False
 
@@ -43,10 +44,11 @@ while True:
     plat2.update()
     plat2.draw()
 
+    plat3.update()
+    plat3.draw()
+
     snb.update(pressed, screenDimensions)
     snb.draw()
-
-    
 
     pygame.display.flip()
     for event in pygame.event.get():
