@@ -54,10 +54,13 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, pressed, screenDimensions):
         if pressed['Space'] == True and self.jumped == False:
-            self.dy = -1.5
-        elif self.rect.bottomright[1] < screenDimensions[1] :
-            self.dy = 1
+            self.image = self.load_image("../assets/jump.gif")
+            self.dy = -.5
+        elif self.rect.bottomright[1] < screenDimensions[1]:
+            self.image = self.load_image("../assets/fall.gif")
+            self.dy = .5 
         else:
+            self.image = self.load_image("../assets/idle.gif")
             self.dy = 0
             self.jumped = False
         
