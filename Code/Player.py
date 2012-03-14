@@ -48,23 +48,18 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
+        # pygame.Rect takes ((start_x, start_y), (width, height))[EXPERIMENTAL]
         self.boundwidth = 5
         self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h))
-        #self.left.rect.move(self.x, self.y)
-        #self.left.rect.topleft = (self.x, self.y)
-        #self.left.rect.bottomright = (self.x + self.boundwidth, self.y + self.image_h)
-
-        # pygame.Rect takes in ((start_x, start_y), (width, height)
         self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h))
-        #self.right.rect.move(self.x + self.image_w, self.y)
-        #self.right.rect.topleft = (self.x + self.image_w - self.boundwidth, self.y) 
-        #self.right.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
         self.alive = True
         self.jumped = False
         self.apex = False
         self.jumptimer = 0
         self.direction = "Right"
+        self.movetimer = 0
+        self.runtimer  = 0
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -76,23 +71,14 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.jumptimer += 1
 
-            if self.direction == "Right":
-                self.image = self.load_image(JUMP1)
-            elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image(JUMP1), True, False)
+            self.loadImage(JUMP1)
             self.dy = -.8
 
         elif self.rect.bottomright[1] < screenDimensions[1]:
-            if self.direction == "Right":
-                self.image = self.load_image(FALL1)
-            elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image(FALL1), True, False)
+            self.loadImage(FALL1)
             self.dy = .8
         else:
-            if self.direction == "Right":
-                self.image = self.load_image(IDLE1)
-            elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image(IDLE1), True, False)
+            self.loadImage(IDLE1)
             self.dy = 0
             self.jumped = False
             self.apex = False
@@ -100,19 +86,84 @@ class Player(pygame.sprite.Sprite):
         
         if pressed['Left'] == True:
             self.direction = "Left"
-            if pressed ['Right'] == True:
-                self.dx = 0 
             if abs(self.dx) < self.dx_max:
                 self.dx = self.dx - self.ddx
+            if pressed ['Right'] == True:
+                self.dx = 0 
+            elif pressed ['Space'] == False:
+                if pressed['Shift'] == True:
+                    if self.runtimer < 25:
+                        self.loadImage(RUNN1)
+                        self.runtimer += 1
+                    elif self.runtimer < 50: 
+                        self.loadImage(RUNN2)
+                        self.runtimer += 1
+                    elif self.runtimer < 75:
+                        self.loadImage(RUNN3)
+                        self.runtimer += 1
+                    elif self.runtimer < 100:
+                        self.loadImage(RUNN4)
+                        self.runtimer += 1
+                    else:
+                        self.runtimer = 0
+                else:
+                    if self.movetimer < 25:
+                        self.loadImage(WALK1)
+                        self.movetimer += 1
+                    elif self.movetimer < 50: 
+                        self.loadImage(WALK2)
+                        self.movetimer += 1
+                    elif self.movetimer < 75:
+                        self.loadImage(WALK3)
+                        self.movetimer += 1
+                    elif self.movetimer < 100:
+                        self.loadImage(WALK4)
+                        self.movetimer += 1
+                    else:
+                        self.movetimer = 0
+
+
         elif pressed['Right'] == True:
             self.direction = "Right"
-            if pressed ['Left'] == True:
-                self.dx = 0 
             if abs(self.dx) < self.dx_max:
                 self.dx = self.dx + self.ddx
+            if pressed ['Left'] == True:
+                self.dx = 0 
+            elif pressed ['Space'] == False:
+                if pressed['Shift'] == True:
+                    if self.runtimer < 25:
+                        self.loadImage(RUNN1)
+                        self.runtimer += 1
+                    elif self.runtimer < 50: 
+                        self.loadImage(RUNN2)
+                        self.runtimer += 1
+                    elif self.runtimer < 75:
+                        self.loadImage(RUNN3)
+                        self.runtimer += 1
+                    elif self.runtimer < 100:
+                        self.loadImage(RUNN4)
+                        self.runtimer += 1
+                    else:
+                        self.runtimer = 0
+                else:
+                    if self.movetimer < 25:
+                        self.loadImage(WALK1)
+                        self.movetimer += 1
+                    elif self.movetimer < 50: 
+                        self.loadImage(WALK2)
+                        self.movetimer += 1
+                    elif self.movetimer < 75:
+                        self.loadImage(WALK3)
+                        self.movetimer += 1
+                    elif self.movetimer < 100:
+                        self.loadImage(WALK4)
+                        self.movetimer += 1
+                    else:
+                        self.movetimer = 0
         else:
             self.dx = 0
 
+        # Move the bounding box
         self.x = self.x + self.dx
         self.y = self.y + self.dy
         self.rect = self.image.get_rect()
@@ -120,10 +171,18 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
+        # The sides [EXPERIMENTAL]
         self.left.top = self.left.top + self.dy
         self.left.left = self.left.left + self.dx
 
         self.right.top = self.right.top + self.dy
         self.right.left = self.right.left + self.dx
-    #def jump(self):
 
+    # Takes in state and loads the appropriate image.
+    def loadImage(self, state):
+        if self.direction == "Right":
+            self.image = self.load_image(state)
+        elif self.direction == "Left":
+            self.image = pygame.transform.flip(self.load_image(state), True, False)
+
+        
