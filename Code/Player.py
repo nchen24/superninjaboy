@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         return image.convert_alpha()
 
     def __init__(self, screen, x, y):
-        self.image = self.load_image("../assets/idle.gif")
+        self.image = self.load_image("idle.gif")
         self.screen = screen
         self.x   = x
         self.y   = y
@@ -48,6 +48,7 @@ class Player(pygame.sprite.Sprite):
         self.jumped = False
         self.apex = False
         self.jumptimer = 0
+        self.direction = "Right"
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -58,24 +59,36 @@ class Player(pygame.sprite.Sprite):
                 self.apex = True
             else:
                 self.jumptimer += 1
-            self.image = self.load_image("../assets/jump.gif")
-            self.dy = -.8
+
+            if self.direction == "Right":
+                self.image = self.load_image("jump.gif")
+                self.dy = -.8
+            elif self.direction == "Left":
+                self.image = pygame.transform.flip(self.load_image("jump.gif"), True, False)
+                self.dy = -.8
+
         elif self.rect.bottomright[1] < screenDimensions[1]:
-            self.image = self.load_image("../assets/fall.gif")
-            self.dy = .8 
+            if self.direction == "Right":
+                self.image = self.load_image("fall.gif")
+                self.dy = .8 
+            elif self.direction == "Left":
+                self.image = pygame.transform.flip(self.load_image("fall.gif"), True, False)
+                self.dy = .8
         else:
-            self.image = self.load_image("../assets/idle.gif")
+            self.image = self.load_image("idle.gif")
             self.dy = 0
             self.jumped = False
             self.apex = False
             self.jumptimer = 0
         
         if pressed['Left'] == True:
+            self.direction = "Left"
             if pressed ['Right'] == True:
                 self.dx = 0 
             if abs(self.dx) < self.dx_max:
                 self.dx = self.dx - self.ddx
         elif pressed['Right'] == True:
+            self.direction = "Right"
             if pressed ['Left'] == True:
                 self.dx = 0 
             if abs(self.dx) < self.dx_max:
