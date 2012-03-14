@@ -1,6 +1,13 @@
 import pygame, os, sys
 from pygame.locals import *
 
+###############################
+# Constants for image loading #
+###############################
+IDLE = "../assets/idle.gif"
+FALL = "../assets/fall.gif"
+JUMP = "../assets/jump.gif"
+
 #################
 # Player Sprite #
 #################
@@ -15,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         return image.convert_alpha()
 
     def __init__(self, screen, x, y):
-        self.image = self.load_image("idle.gif")
+        self.image = self.load_image(IDLE)
         self.screen = screen
         self.x   = x
         self.y   = y
@@ -61,21 +68,24 @@ class Player(pygame.sprite.Sprite):
                 self.jumptimer += 1
 
             if self.direction == "Right":
-                self.image = self.load_image("jump.gif")
+                self.image = self.load_image(JUMP)
                 self.dy = -.8
             elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image("jump.gif"), True, False)
+                self.image = pygame.transform.flip(self.load_image(JUMP), True, False)
                 self.dy = -.8
 
         elif self.rect.bottomright[1] < screenDimensions[1]:
             if self.direction == "Right":
-                self.image = self.load_image("fall.gif")
+                self.image = self.load_image(FALL)
                 self.dy = .8 
             elif self.direction == "Left":
-                self.image = pygame.transform.flip(self.load_image("fall.gif"), True, False)
+                self.image = pygame.transform.flip(self.load_image(FALL), True, False)
                 self.dy = .8
         else:
-            self.image = self.load_image("idle.gif")
+            if self.direction == "Right":
+                self.image = self.load_image(IDLE)
+            elif self.direction == "Left":
+                self.image = pygame.transform.flip(self.load_image(IDLE), True, False)
             self.dy = 0
             self.jumped = False
             self.apex = False
