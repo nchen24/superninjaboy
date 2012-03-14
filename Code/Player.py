@@ -95,10 +95,11 @@ class Player(pygame.sprite.Sprite):
             if pressed ['Right'] == True:
                 self.dx = 0 
             elif pressed ['Space'] == False:
-                if pressed['Shift'] == True:
-                    self.whichRun()
-                else:
-                    self.whichWalk()
+                if self.dy == 0:
+                    if pressed['Shift'] == True:
+                        self.whichRun()
+                    else:
+                        self.whichWalk()
 
         elif pressed['Right'] == True:
             self.direction = "Right"
@@ -107,10 +108,11 @@ class Player(pygame.sprite.Sprite):
             if pressed ['Left'] == True:
                 self.dx = 0 
             elif pressed ['Space'] == False:
-                if pressed['Shift'] == True:
-                    self.whichRun()
-                else:
-                    self.whichWalk()
+                if self.dy == 0:
+                    if pressed['Shift'] == True:
+                        self.whichRun()
+                    else:
+                        self.whichWalk()
         else:
             self.dx = 0
 
