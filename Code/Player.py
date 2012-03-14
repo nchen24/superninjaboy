@@ -53,9 +53,8 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(self.image, (self.x, self.y))
 
     def update(self, pressed, screenDimensions):
-        if pressed['Space'] == True:
+        if pressed['Space'] == True and self.jumped == False:
             self.dy = -1.5
-            self.jumped = True
         elif self.rect.bottomright[1] < screenDimensions[1] :
             self.dy = 1
         else:

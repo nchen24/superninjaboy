@@ -40,6 +40,7 @@ while True:
                 pressed['Shift'] = True
             elif event.key == K_SPACE:
                 pressed['Space'] = True
+                snb.jumped = True
         elif event.type == KEYUP:
             if event.key == K_LEFT:
                 pressed['Left'] = False
