@@ -18,6 +18,12 @@ RUNN4 = "../assets/running_4.gif"
 SLID1 = "../assets/wall_slide.gif"
 PLAT1 = "../assets/platform1.png"
 
+###################
+# Other constants #
+###################
+ONEFRAME  = 20
+JUMPLIMIT = 100
+
 #################
 # Player Sprite #
 #################
@@ -70,7 +76,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, pressed, screenDimensions):
         if pressed['Space'] == True and not(self.jumped) and not(self.apex):
-            if self.jumptimer > 100:
+            if self.jumptimer > JUMPLIMIT:
                 self.apex = True
             else:
                 self.jumptimer += 1
@@ -135,16 +141,16 @@ class Player(pygame.sprite.Sprite):
 
     # Determines which walking animation to load.
     def whichWalk(self):
-        if self.movetimer < 25:
-            self.loadImage(WALK1)
+        if self.movetimer < ONEFRAME: # ONEFRAME is defined in constants.  This
+            self.loadImage(WALK1)     # allows for easy tweaking of animation
             self.movetimer += 1
-        elif self.movetimer < 50: 
+        elif self.movetimer < 2*ONEFRAME: 
             self.loadImage(WALK2)
             self.movetimer += 1
-        elif self.movetimer < 75:
+        elif self.movetimer < 3*ONEFRAME:
             self.loadImage(WALK3)
             self.movetimer += 1
-        elif self.movetimer < 100:
+        elif self.movetimer < 4*ONEFRAME:
             self.loadImage(WALK4)
             self.movetimer += 1
         else:
@@ -152,16 +158,16 @@ class Player(pygame.sprite.Sprite):
 
     # Determines which running animation to load.
     def whichRun(self):
-        if self.runtimer < 25:
+        if self.runtimer < ONEFRAME:
             self.loadImage(RUNN1)
             self.runtimer += 1
-        elif self.runtimer < 50: 
+        elif self.runtimer < 2*ONEFRAME: 
             self.loadImage(RUNN2)
             self.runtimer += 1
-        elif self.runtimer < 75:
+        elif self.runtimer < 3*ONEFRAME:
             self.loadImage(RUNN3)
             self.runtimer += 1
-        elif self.runtimer < 100:
+        elif self.runtimer < 4*ONEFRAME:
             self.loadImage(RUNN4)
             self.runtimer += 1
         else:
