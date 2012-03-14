@@ -92,36 +92,9 @@ class Player(pygame.sprite.Sprite):
                 self.dx = 0 
             elif pressed ['Space'] == False:
                 if pressed['Shift'] == True:
-                    if self.runtimer < 25:
-                        self.loadImage(RUNN1)
-                        self.runtimer += 1
-                    elif self.runtimer < 50: 
-                        self.loadImage(RUNN2)
-                        self.runtimer += 1
-                    elif self.runtimer < 75:
-                        self.loadImage(RUNN3)
-                        self.runtimer += 1
-                    elif self.runtimer < 100:
-                        self.loadImage(RUNN4)
-                        self.runtimer += 1
-                    else:
-                        self.runtimer = 0
+                    self.whichRun()
                 else:
-                    if self.movetimer < 25:
-                        self.loadImage(WALK1)
-                        self.movetimer += 1
-                    elif self.movetimer < 50: 
-                        self.loadImage(WALK2)
-                        self.movetimer += 1
-                    elif self.movetimer < 75:
-                        self.loadImage(WALK3)
-                        self.movetimer += 1
-                    elif self.movetimer < 100:
-                        self.loadImage(WALK4)
-                        self.movetimer += 1
-                    else:
-                        self.movetimer = 0
-
+                    self.whichWalk()
 
         elif pressed['Right'] == True:
             self.direction = "Right"
@@ -131,35 +104,9 @@ class Player(pygame.sprite.Sprite):
                 self.dx = 0 
             elif pressed ['Space'] == False:
                 if pressed['Shift'] == True:
-                    if self.runtimer < 25:
-                        self.loadImage(RUNN1)
-                        self.runtimer += 1
-                    elif self.runtimer < 50: 
-                        self.loadImage(RUNN2)
-                        self.runtimer += 1
-                    elif self.runtimer < 75:
-                        self.loadImage(RUNN3)
-                        self.runtimer += 1
-                    elif self.runtimer < 100:
-                        self.loadImage(RUNN4)
-                        self.runtimer += 1
-                    else:
-                        self.runtimer = 0
+                    self.whichRun()
                 else:
-                    if self.movetimer < 25:
-                        self.loadImage(WALK1)
-                        self.movetimer += 1
-                    elif self.movetimer < 50: 
-                        self.loadImage(WALK2)
-                        self.movetimer += 1
-                    elif self.movetimer < 75:
-                        self.loadImage(WALK3)
-                        self.movetimer += 1
-                    elif self.movetimer < 100:
-                        self.loadImage(WALK4)
-                        self.movetimer += 1
-                    else:
-                        self.movetimer = 0
+                    self.whichWalk()
         else:
             self.dx = 0
 
@@ -177,6 +124,40 @@ class Player(pygame.sprite.Sprite):
 
         self.right.top = self.right.top + self.dy
         self.right.left = self.right.left + self.dx
+
+    # Determines which walking animation to load.
+    def whichWalk(self):
+        if self.movetimer < 25:
+            self.loadImage(WALK1)
+            self.movetimer += 1
+        elif self.movetimer < 50: 
+            self.loadImage(WALK2)
+            self.movetimer += 1
+        elif self.movetimer < 75:
+            self.loadImage(WALK3)
+            self.movetimer += 1
+        elif self.movetimer < 100:
+            self.loadImage(WALK4)
+            self.movetimer += 1
+        else:
+            self.movetimer = 0
+
+    # Determines which running animation to load.
+    def whichRun(self):
+        if self.runtimer < 25:
+            self.loadImage(RUNN1)
+            self.runtimer += 1
+        elif self.runtimer < 50: 
+            self.loadImage(RUNN2)
+            self.runtimer += 1
+        elif self.runtimer < 75:
+            self.loadImage(RUNN3)
+            self.runtimer += 1
+        elif self.runtimer < 100:
+            self.loadImage(RUNN4)
+            self.runtimer += 1
+        else:
+            self.runtimer = 0
 
     # Takes in state and loads the appropriate image.
     def loadImage(self, state):
