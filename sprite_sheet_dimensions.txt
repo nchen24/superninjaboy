@@ -1,0 +1,17 @@
+Walking 1 - start(29x9), offset(15x26)
+Walking 2 - start(51x9), offset(10x26)
+Walking 3 - start(68x9), offset(12x26)
+Walking 4 - start(88x10), offset(14x25)
+
+idle - start(9x9), offset(12x26)
+
+Running 1 - start(110x13), offset(18x22)
+Running 2 - start(136x12), offset(13x23)
+Running 3 - start(157x11), offset(13x24)
+Running 4 - start(178x15), offset(20x20)
+
+Jump - start(206x15), offset(17x20)
+
+Fall - start(231x13), offset(20x22)
+
+Slide - start(257x11), offset(13x24)
