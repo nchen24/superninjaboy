@@ -1,3 +1,7 @@
+March 26th 2012 15:39
+    -Added spritesheet.py
+    -Added ability to load images with spritsheet.py
+        -Currently commented out because the images are not transparent
 March 14th 2012 13:43
     -Added constants to make tweaking jump height and animation speed easier
 
