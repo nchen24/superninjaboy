@@ -1,4 +1,4 @@
-import pygame, os, sys
+import pygame, spritesheet, os, sys
 from pygame.locals import *
 
 ###############################
@@ -17,6 +17,7 @@ RUNN3 = "../assets/running_3.gif"
 RUNN4 = "../assets/running_4.gif"
 SLID1 = "../assets/wall_slide.gif"
 PLAT1 = "../assets/platform1.png"
+
 
 ###################
 # Other constants #
@@ -155,6 +156,9 @@ class Player(pygame.sprite.Sprite):
     # Determines which walking animation to load.
     def whichWalk(self):
         if self.movetimer < ONEFRAME: # ONEFRAME is defined in constants.  This
+            #ss = spritesheet.spritesheet("../assets/short_sprite_sheet.png")
+            #xmage = ss.image_at((12,10,9,23))
+            #self.image = xmage
             self.loadImage(WALK1)     # allows for easy tweaking of animation
             self.movetimer += 1
         elif self.movetimer < 2*ONEFRAME: 
