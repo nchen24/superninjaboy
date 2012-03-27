@@ -15,3 +15,22 @@ Jump - start(206x15), offset(17x20)
 Fall - start(231x13), offset(20x22)
 
 Slide - start(257x11), offset(13x24)
+=========================================
+
+Walls - (StartX, StartY, XDim, YDim)
+
+No bordering:
+    Only one:
+        (162, 54, 16, 16)
+        (180, 54, 16, 16)
+        (198, 54, 16, 16)
+
+One bordering:
+    North:
+        (108, 0,  16, 16)
+        (126, 0,  16, 16)
+        (144, 0,  16, 16)
+    East:
+        (162, 0,  16, 16)
+        (162, 18, 16, 16)
+        (162, 36, 16, 16)
