@@ -157,7 +157,7 @@ class Player(pygame.sprite.Sprite):
     # Determines which walking animation to load.
     def whichWalk(self):
         if self.movetimer < ONEFRAME: # ONEFRAME is defined in constants.  This
-            xmage = self.ss.image_at((0,0,9,23), colorkey = (0,0,0))
+            xmage = self.ss.image_at((0,0,9,23), colorkey = (255,255,255))
             self.image = xmage
             #self.loadImage(WALK1)     # allows for easy tweaking of animation
             if self.direction == "Right":
