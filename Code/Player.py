@@ -51,6 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.dx_max = .8
         self.dy_max = .8
         self.image_w, self.image_h = self.image.get_size()
+        self.ss = spritesheet.spritesheet("../assets/double_sprite_sheet_small_rev1.gif")
 
         self.rect = self.image.get_rect()
         self.rect.move(self.x, self.y)
@@ -156,10 +157,13 @@ class Player(pygame.sprite.Sprite):
     # Determines which walking animation to load.
     def whichWalk(self):
         if self.movetimer < ONEFRAME: # ONEFRAME is defined in constants.  This
-            #ss = spritesheet.spritesheet("../assets/short_sprite_sheet.png")
-            #xmage = ss.image_at((12,10,9,23))
-            #self.image = xmage
-            self.loadImage(WALK1)     # allows for easy tweaking of animation
+            xmage = self.ss.image_at((0,0,9,23), colorkey = (0,0,0))
+            self.image = xmage
+            #self.loadImage(WALK1)     # allows for easy tweaking of animation
+            if self.direction == "Right":
+                self.image = xmage
+            elif self.direction == "Left":
+                self.image = pygame.transform.flip(xmage, True, False)
             self.movetimer += 1
         elif self.movetimer < 2*ONEFRAME: 
             self.loadImage(WALK2)
