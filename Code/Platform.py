@@ -28,12 +28,16 @@ class Platform(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
-        self.boundwidth = 5
+        self.boundwidth = 10
 
         self.top = pygame.Rect((self.x, self.y), (self.image_w, self.boundwidth))
+        self.left = pygame.Rect((self.x,self.y), (self.boundwidth,self.image_h))
+        self.right = pygame.Rect(((self.x + self.image_w - self.boundwidth),self.y), (self.boundwidth,self.image_h))
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
 
     def update(self):
         self.top = pygame.Rect((self.x, self.y), (self.image_w, self.boundwidth))
+        self.left = pygame.Rect((self.x,self.y), (self.boundwidth,self.image_h))
+        self.right = pygame.Rect(((self.x + self.image_w - self.boundwidth),self.y), (self.boundwidth,self.image_h))

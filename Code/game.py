@@ -38,6 +38,33 @@ while True:
         snb.onplat = True
     else: snb.onplat = False
 
+    if plat1.left.colliderect(snb.right) or plat1.right.colliderect(snb.left):
+        snb.dx = 0
+        snb.jumped = False
+        snb.jumptimer = 0
+        snb.apex = False 
+        snb.onwall = True
+        print ("on tha wall")
+    else: snb.onwall = False
+
+    if plat2.left.colliderect(snb.right) or plat2.right.colliderect(snb.left):
+        snb.dx = 0
+        snb.jumped = False
+        snb.jumptimer = 0
+        snb.apex = False 
+        snb.onwall = True
+        print ("on tha wall")
+    else: snb.onwall = False
+
+    if plat3.left.colliderect(snb.right) or plat3.right.colliderect(snb.left):
+        snb.dx = 0
+        snb.jumped = False
+        snb.jumptimer = 0
+        snb.apex = False 
+        snb.onwall = True
+        #print ("on tha wall")
+    else: snb.onwall = False
+
     plat1.update()
     plat1.draw()
 
@@ -73,4 +100,5 @@ while True:
                 pressed['Shift'] = False
             elif event.key == K_SPACE:
                 pressed['Space'] = False
+                snb.canJump = True
 
