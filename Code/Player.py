@@ -134,6 +134,7 @@ class Player(pygame.sprite.Sprite):
         self.runtimer  = 0
         self.onplat = False
         self.onwall = False
+        self.contact_side = None
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -203,7 +204,7 @@ class Player(pygame.sprite.Sprite):
         if self.onwall == True and self.rect.bottomright[1] < screenDimensions[1]:
             #self.jumped = False
             #if self.direction == "Right" and self.onwall == True:
-            #    if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
+                #if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
             #        if self.jumptimer > JUMPLIMIT:
             #            self.apex = True
             #            self.canJump = False
@@ -243,6 +244,7 @@ class Player(pygame.sprite.Sprite):
                 self.jumped = False
                 self.apex = False
                 self.jumptimer = 0
+                #self.canJump = True
         elif self.onwall == True and self.rect.bottomright[1] == screenDimensions[1]:
             #self.dx = 0
             pass
