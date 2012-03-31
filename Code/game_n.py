@@ -43,7 +43,7 @@ def genwall(screen):
                 walls.append(Wall(screen, hc*16, vc*16))
 
 pygame.init()
-screenDimensions = (1200, 700)
+screenDimensions = (1024, 768)
 window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
