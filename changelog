@@ -1,3 +1,7 @@
+April 1st  2012 19:37
+    -Added Levels 2-4
+    -Changed screen size to 1024x640
+
 March 31st 2012 18:28
     -Added rudimentary sliding, still buggy
     -Added reading from file, in game_n.py

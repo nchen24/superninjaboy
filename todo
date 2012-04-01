@@ -1,0 +1,12 @@
+1.) Level generation
+    1a.) Either hardcode which block to use or figure out how to display the
+         correct one based on neighboring blocks (low priority)
+2a.) Mechanics
+2b.) Making levels (rough draft)
+3.) Advancing through levels
+4.) Add a timer to level
+    4a.) Keep track of best time for each level somewhere
+5.) Sound?
+6.) Menus
+7.) Dying => Reset level
+8.) Level selection
