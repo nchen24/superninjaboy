@@ -1,4 +1,3 @@
-#what up?
 import pygame, sys, os, Player
 from pygame.locals import *
 from Player import *
@@ -9,71 +8,162 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 PLAT1 = "../assets/platform1-2.gif"
 PLAT2 = "../assets/platform1-3.gif"
+px = 0 # Starting x location of player
+py = 0 # Starting y location of player
 
 def quit():
     pygame.quit()
     sys.exit(0)
 
+
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, screen, x, y):
+        self.x = x
+        self.y = y
+        self.w = 16
+        self.h = 16
+        self.screen = screen
+        self.image = pygame.image.load("../Assets/Walls/onewall.png")
+        self.image_w, self.image_h = self.image.get_size()
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.x, self.y)
+        self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
+
+        self.active = False
+
+    def draw(self):
+        self.screen.blit(self.image, (self.x, self.y))
+
+
+class Spike(pygame.sprite.Sprite):
+    def __init__(self,screen,x,y):
+        self.x = x
+        self.y = y
+        self.w = 16
+        self.h = 16
+        self.screen = screen
+        self.image = pygame.image.load("../assets/spike.png")
+        self.image_w, self.image_h = self.image.get_size()
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.x, self.y)
+        self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
+
+    def draw(self):
+        self.screen.blit(self.image, (self.x, self.y))
+
+walls = []
+spikes = []
+pstart = []
+
+def genwall(screen):
+    mapFile = open("../Levels/Level1.txt", 'r') 
+    vc = 0
+    hc = 0
+    for line in mapFile:
+        vc += 1
+        hc =  0
+        for character in line:
+            hc +=1
+            if character == "#":
+                walls.append(Wall(screen, hc*16, vc*16))
+            if character == "^":
+                spikes.append(Spike(screen, hc*16, vc*16))
+            if character == "P":
+                pstart.append(hc*16)
+                pstart.append(vc*16)
+    print("pstart0 = " + str(pstart[0]))
+    print("pstart1 = " + str(pstart[1]))
+
 pygame.init()
-screenDimensions = (1200, 700)
+screenDimensions = (1024, 768)
 window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
 background = pygame.Surface(screen.get_size())
 
 # The player
-snb = Player(screen, 350, 500)
 pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
 plat1 = Platform(screen, PLAT1, 400, 650)
 plat2 = Platform(screen, PLAT2, 600, 600)
 plat3 = Platform(screen, PLAT2, 100, 600)
 
+onPlat = False
+
+genwall(screen)
+snb = Player(screen, pstart[0], pstart[1])
+
+
 while True:
     screen.fill(WHITE)
 
-    if plat1.top.colliderect(snb.bottom) or plat2.top.colliderect(snb.bottom) or plat3.top.colliderect(snb.bottom):
-        snb.dy = 0
-        snb.jumped = False
-        snb.jumptimer = 0
-        snb.apex = False 
-        snb.onplat = True
-    else: snb.onplat = False
+    #if plat1.top.colliderect(snb.bottom) or plat2.top.colliderect(snb.bottom) or plat3.top.colliderect(snb.bottom):
+    #    snb.dy = 0
+    #    snb.jumped = False
+    #    snb.jumptimer = 0
+    #    snb.apex = False 
+    #    snb.onplat = True
+    #else: snb.onplat = False
 
-    if plat1.left.colliderect(snb.right) or plat1.right.colliderect(snb.left):
-        snb.dx = 0
-        snb.jumped = False
-        snb.jumptimer = 0
-        snb.apex = False 
-        snb.onwall = True
-        print ("on tha wall")
-    else: snb.onwall = False
+    #if plat1.left.colliderect(snb.right) or plat1.right.colliderect(snb.left):
+    #    snb.dx = 0
+    #    snb.jumped = False
+    #    snb.jumptimer = 0
+    #    snb.apex = False 
+    #    snb.onwall = True
+    #    print ("on tha wall")
+    #else: snb.onwall = False
 
-    if plat2.left.colliderect(snb.right) or plat2.right.colliderect(snb.left):
-        snb.dx = 0
-        snb.jumped = False
-        snb.jumptimer = 0
-        snb.apex = False 
-        snb.onwall = True
-        print ("on tha wall")
-    else: snb.onwall = False
+    #if plat2.left.colliderect(snb.right) or plat2.right.colliderect(snb.left):
+    #    snb.dx = 0
+    #    snb.jumped = False
+    #    snb.jumptimer = 0
+    #    snb.apex = False 
+    #    snb.onwall = True
+    #    print ("on tha wall")
+    #else: snb.onwall = False
 
-    if plat3.left.colliderect(snb.right) or plat3.right.colliderect(snb.left):
-        snb.dx = 0
-        snb.jumped = False
-        snb.jumptimer = 0
-        snb.apex = False 
-        snb.onwall = True
-        #print ("on tha wall")
-    else: snb.onwall = False
+    #if plat3.left.colliderect(snb.right) or plat3.right.colliderect(snb.left):
+    #    snb.dx = 0
+    #    snb.jumped = False
+    #    snb.jumptimer = 0
+    #    snb.apex = False 
+    #    snb.onwall = True
+    #    #print ("on tha wall")
+    #else: snb.onwall = False
 
-    plat1.update()
-    plat1.draw()
+    #plat1.update()
+    #plat1.draw()
 
-    plat2.update()
-    plat2.draw()
+    #plat2.update()
+    #plat2.draw()
 
-    plat3.update()
-    plat3.draw()
+    #plat3.update()
+    #plat3.draw()
+
+    for w in walls:
+        w.draw()
+        if w.rect.colliderect(snb.bottom) and (w.active == False or w.active == True):
+            snb.dy = 0
+            snb.jumped = False
+            snb.jumptimer = 0
+            snb.apex = False
+            snb.onplat = True
+            w.active = True
+            #print("activated")
+        elif not(w.rect.colliderect(snb.bottom)) and w.active == True:
+            w.active = False
+
+    onPlat = False
+    for w in walls:
+        if w.active == True:
+            onPlat = True
+    if onPlat == False:
+        snb.onplat = False
+
+    for s in spikes:
+        s.draw()
 
     snb.update(pressed, screenDimensions)
     snb.draw()
