@@ -31,7 +31,7 @@ def quit():
     pygame.quit()
     sys.exit(0)
 def genwall(screen):
-    mapFile = open("../Levels/Level1.txt", 'r') 
+    mapFile = open("../Levels/Level4.txt", 'r') 
     vc = 0
     hc = 0
     for line in mapFile:
@@ -43,7 +43,7 @@ def genwall(screen):
                 walls.append(Wall(screen, hc*16, vc*16))
 
 pygame.init()
-screenDimensions = (1024, 768)
+screenDimensions = (1024, 640)
 window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
