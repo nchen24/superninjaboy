@@ -141,6 +141,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, pressed, screenDimensions):
         if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
+            self.onplat = False
             if self.jumptimer > JUMPLIMIT:
                 self.apex = True
                 self.canJump = False
@@ -344,7 +345,7 @@ class Player(pygame.sprite.Sprite):
         if self.direction == "Right":
             self.image = self.FALL_RIGHT
         elif self.direction == "Left":
-            self.image = self.JUMP_RIGHT
+            self.image = self.FALL_LEFT
     def whichSlide(self):
         if self.direction == "Right":
             self.image = self.SLID_RIGHT
