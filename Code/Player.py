@@ -22,7 +22,8 @@ SS = "../assets/sprite_sheet_colors_fixed.png"
 ###################
 # Other constants #
 ###################
-ONEFRAME  = 20
+#ONEFRAME  = 20
+ONEFRAME = 11
 JUMPLIMIT = 100
 SPRINTMOD = 2
 
@@ -60,7 +61,6 @@ class spritesheet(object):
 #################
 # Player Sprite #
 #################
-
 
 class Player(pygame.sprite.Sprite):
     def load_image(self, image_name):
@@ -107,10 +107,18 @@ class Player(pygame.sprite.Sprite):
         self.y   = y
         self.dx  = 0
         self.dy  = 0
-        self.ddx = .1
+
+        #self.ddx = .1
+        self.ddx = .5
         self.ddy = 0
-        self.dx_max = .8
-        self.dy_max = .8
+
+        #self.dx_max = .8
+        #self.dy_max = .8
+
+        self.dx_max = 2
+        self.dy_max = 2
+
+
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()
@@ -118,12 +126,12 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
-        self.bottom = pygame.Rect((self.x,(self.y + self.image_h - 5)), (self.image_w, 5))
+        self.bottom = pygame.Rect((self.x + 2,(self.y + self.image_h - 5)), (self.image_w - 4, 5))
 
         # pygame.Rect takes ((start_x, start_y), (width, height))[EXPERIMENTAL]
         self.boundwidth = 5
-        self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h))
-        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h))
+        self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h-self.boundwidth))
+        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h - self.boundwidth))
 
         self.alive = True
         self.jumped = False
@@ -149,11 +157,13 @@ class Player(pygame.sprite.Sprite):
                 self.jumptimer += 1
 
             self.whichJump()
-            self.dy = -.8
+            #self.dy = -.8
+            self.dy = -1.5
 
         elif self.rect.bottomright[1] < screenDimensions[1] and self.onplat == False and self.onwall == False:
             self.whichFall()
-            self.dy = .8
+            #self.dy = .8
+            self.dy = 1.5
 
         else:
             self.whichIdle()
@@ -203,49 +213,13 @@ class Player(pygame.sprite.Sprite):
             self.dx = 0
 
         if self.onwall == True and self.rect.bottomright[1] < screenDimensions[1]:
-            #self.jumped = False
-            #if self.direction == "Right" and self.onwall == True:
-                #if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
-            #        if self.jumptimer > JUMPLIMIT:
-            #            self.apex = True
-            #            self.canJump = False
-            #        else:
-            #            self.jumptimer += 1
-            #        self.direction = "Left"
-            #        self.whichJump()
-            #        self.dy = -.8
-            #        self.dx = -.8
-            #    #if pressed['Right'] == True:
-            #    #    pass
-            #    if pressed['Left'] == True:
-            #        self.onwall = False
-
-            #elif self.direction == "Left" and self.onwall == True:
-            #    if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
-            #        if self.jumptimer > JUMPLIMIT:
-            #            self.apex = True
-            #            self.canJump = False
-            #        else:
-            #            self.jumptimer += 1
-            #        self.direction = "Right"
-            #        self.whichJump()
-            #        self.dy = -.8
-            #        self.dx = .8
-
-            #    if pressed['Left'] == True:
-            #        pass
-            #    if pressed['Right'] == True:
-            #        #self.onwall = False
-            #        #self.x = self.x+10
-            #        pass
-            #else:
-                self.whichSlide()
-                self.dy = .2
-                self.dx = 0
-                self.jumped = False
-                self.apex = False
-                self.jumptimer = 0
-                #self.canJump = True
+            self.whichSlide()
+            self.dy = .2
+            self.dx = 0
+            self.jumped = False
+            self.apex = False
+            self.jumptimer = 0
+            #self.canJump = True
         elif self.onwall == True and self.rect.bottomright[1] == screenDimensions[1]:
             #self.dx = 0
             pass
@@ -265,9 +239,23 @@ class Player(pygame.sprite.Sprite):
         self.right.top = self.right.top + self.dy
         self.right.left = self.right.left + self.dx
 
-        self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h))
-        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h))
-        self.bottom = pygame.Rect((self.x,(self.y + self.image_h - 5)), (self.image_w, 5))
+        self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h - self.boundwidth))
+        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h - self.boundwidth))
+        self.bottom = pygame.Rect((self.x+2,(self.y + self.image_h - 5)), (self.image_w-4, 5))
+
+
+    def respawn(self, x, y):
+        self.x = x
+        self.y = y
+        self.jumped = False
+        self.jumptimer = 0
+        self.onplat = False
+        self.whichIdle()
+        self.dx  = 0
+        self.dy  = 0
+        self.alive = True
+       
+
 
     # Determines which walking animation to load.
     def whichWalk(self):
