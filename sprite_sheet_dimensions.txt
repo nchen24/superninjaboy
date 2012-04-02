@@ -108,3 +108,21 @@ Three bordering:
         (54,  162, 16, 16)
         (72,  162, 16, 16)
         (90,  162, 16, 16)
+
+=================================
+Non-sprite sheet:
+
+IDLE1L = "../assets/idle.gif"
+FALL1L = "../assets/fall.gif"
+JUMP1L = "../assets/jump.gif"
+WALK1L = "../assets/walking_1.gif"
+WALK2L = "../assets/walking_2.gif"
+WALK3L = "../assets/walking_3.gif"
+WALK4L = "../assets/walking_4.gif"
+RUNN1L = "../assets/running_1.gif"
+RUNN2L = "../assets/running_2.gif"
+RUNN3L = "../assets/running_3.gif"
+RUNN4L = "../assets/running_4.gif"
+SLID1L = "../assets/wall_slide.gif"
+PLAT1L = "../assets/platform1.png"
+SS = "../assets/sprite_sheet_colors_fixed.png"

@@ -1,4 +1,7 @@
-April 1st  2012 19:37
+April 2nd 2012 03:06
+    -Changed sprite sheet loading to constants for better readability
+
+April 1st 2012 19:37
     -Added Levels 2-4
     -Changed screen size to 1024x640
 
