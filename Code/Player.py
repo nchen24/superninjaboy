@@ -4,20 +4,22 @@ from pygame.locals import *
 ###############################
 # Constants for image loading #
 ###############################
-IDLE1 = "../assets/idle.gif"
-FALL1 = "../assets/fall.gif"
-JUMP1 = "../assets/jump.gif"
-WALK1 = "../assets/walking_1.gif"
-WALK2 = "../assets/walking_2.gif"
-WALK3 = "../assets/walking_3.gif"
-WALK4 = "../assets/walking_4.gif"
-RUNN1 = "../assets/running_1.gif"
-RUNN2 = "../assets/running_2.gif"
-RUNN3 = "../assets/running_3.gif"
-RUNN4 = "../assets/running_4.gif"
-SLID1 = "../assets/wall_slide.gif"
-PLAT1 = "../assets/platform1.png"
 SS = "../assets/sprite_sheet_colors_fixed.png"
+PLAT1 = "../assets/platform1.png"
+
+IDLE_L = (0,25,10,24)
+FALL_L = (134,25,18,24) 
+JUMP_L = (118,25,15,24) 
+WALK_L = ((11,25,13,24),(25,25,8,24),(34,25,10,24),(45,25,12,24))
+RUNN_L = ((58,25,16,24),(75,25,11,24),(87,25,11,24),(99,25,18,24))
+SLID_L = (153,25,11,24)
+
+IDLE_R = (0,0,10,24)
+FALL_R = (134,0,18,24)
+JUMP_R = (118,0,15,24)
+WALK_R = ((11,0,13,24),(25,0,8,24),(34,0,10,24),(45,0,12,24)) 
+RUNN_R = ((58,0,16,24),(75,0,11,24),(87,0,11,24),(99,0,18,24))
+SLID_R = (153,0,11,24)
 
 ###################
 # Other constants #
@@ -27,8 +29,6 @@ ONEFRAME = 11
 JUMPLIMIT = 100
 SPRINTMOD = 2
 
-
-
 class spritesheet(object):
     def __init__(self, filename):
         try:
@@ -36,7 +36,7 @@ class spritesheet(object):
         except pygame.error, message:
             print 'Unable to load spritesheet image:', filename
             raise SystemExit, message
-    # Load a specific image from a specific rectangle
+        # Load a specific image from a specific rectangle
     def image_at(self, rectangle, colorkey = None):
         "Loads image from x,y,x+offset,y+offset"
         rect = pygame.Rect(rectangle)
@@ -47,11 +47,11 @@ class spritesheet(object):
                 colorkey = image.get_at((0,0))
             image.set_colorkey(colorkey, pygame.RLEACCEL)
         return image
-    # Load a whole bunch of images and return them as a list
+        # Load a whole bunch of images and return them as a list
     def images_at(self, rects, colorkey = None):
         "Loads multiple images, supply a list of coordinates" 
         return [self.image_at(rect, colorkey) for rect in rects]
-    # Load a whole strip of images
+        # Load a whole strip of images
     def load_strip(self, rect, image_count, colorkey = None):
         "Loads a strip of images and returns them as a list"
         tups = [(rect[0]+rect[2]*x, rect[1], rect[2], rect[3])
@@ -80,24 +80,23 @@ class Player(pygame.sprite.Sprite):
         self.RUNN_LEFT = []
 
         #Load two images into an array, their transparent bit is (255, 255, 255)
-        self.WALK_RIGHT = self.ss.images_at(((11,0,13,24),(25,0,8,24),(34,0,10,24),(45,0,12,24)), colorkey=-1)
-        self.WALK_LEFT = self.ss.images_at(((11,25,13,24),(25,25,8,24),(34,25,10,24),(45,25,12,24)), colorkey=-1)
+        self.WALK_RIGHT = self.ss.images_at(WALK_R, colorkey=-1)
+        self.WALK_LEFT  = self.ss.images_at(WALK_L, colorkey=-1)
 
-        self.RUNN_RIGHT = self.ss.images_at(((58,0,16,24),(75,0,11,24),(87,0,11,24),(99,0,18,24)), colorkey=-1)
-        self.RUNN_LEFT = self.ss.images_at(((58,25,16,24),(75,25,11,24),(87,25,11,24),(99,25,18,24)), colorkey=-1)
+        self.RUNN_RIGHT = self.ss.images_at(RUNN_R, colorkey=-1)
+        self.RUNN_LEFT  = self.ss.images_at(RUNN_L, colorkey=-1)
 
-        self.JUMP_RIGHT= self.ss.image_at((118,0,15,24), colorkey = -1)
-        self.JUMP_LEFT= self.ss.image_at((118,25,15,24), colorkey = -1)
+        self.JUMP_RIGHT = self.ss.image_at(JUMP_R,  colorkey = -1)
+        self.JUMP_LEFT  = self.ss.image_at(JUMP_L,  colorkey = -1)
 
-        self.IDLE_RIGHT = self.ss.image_at((0,0,10,24),colorkey=-1)
-        self.IDLE_LEFT = self.ss.image_at((0,25,10,24),colorkey=-1)
+        self.IDLE_RIGHT = self.ss.image_at(IDLE_R,  colorkey=-1)
+        self.IDLE_LEFT  = self.ss.image_at(IDLE_L,  colorkey=-1)
         
-        self.FALL_RIGHT = self.ss.image_at((134,0,18,24),colorkey=-1)
-        self.FALL_LEFT = self.ss.image_at((134,25,18,24),colorkey=-1)
+        self.FALL_RIGHT = self.ss.image_at(FALL_R,  colorkey=-1)
+        self.FALL_LEFT  = self.ss.image_at(FALL_L,  colorkey=-1)
 
-        self.SLID_RIGHT = self.ss.image_at((153,0,11,24),colorkey=-1)
-        self.SLID_LEFT = self.ss.image_at((153,25,11,24),colorkey=-1)
-       
+        self.SLID_RIGHT = self.ss.image_at(SLID_R,  colorkey=-1)
+        self.SLID_LEFT  = self.ss.image_at(SLID_L,  colorkey=-1)
 
         self.direction = "Right"
         self.whichIdle()

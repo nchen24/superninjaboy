@@ -83,6 +83,7 @@ while True:
     for w in walls:
         w.draw()
         if w.rect.colliderect(snb.bottom):
+            print "Colliding w wall!"
             snb.dy = 0
             snb.jumped = False
             snb.jumptimer = 0
