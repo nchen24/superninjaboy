@@ -23,10 +23,8 @@ spikes = []
 pstart = []
 shards = []
 
-def genwall(screen):
-    level = "2"
-    file  = "../Levels/Level%s.txt" %level
-    mapFile = open(file, 'r') 
+def genwall(screen, level):
+    mapFile = open("../Levels/Level%s.txt" %level, 'r') 
     vc = 0
     hc = 0
     for line in mapFile:
@@ -57,8 +55,7 @@ window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
 background = pygame.Surface(screen.get_size())
-background = pygame.image.load(SKY)
-
+#background = pygame.image.load(SKY)
 
 # The player
 pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
@@ -69,8 +66,7 @@ plat3 = Platform(screen, PLAT2, 100, 600)
 onPlat = False
 isDead = False
 
-
-genwall(screen)
+genwall(screen, 2)
 snb = Player(screen, pstart[0], pstart[1])
 
 LevelComplete = False
