@@ -184,8 +184,6 @@ class Player(pygame.sprite.Sprite):
         else:
             self.dx = 0
 
-
-
         if self.onwall == True and self.onplat == False:
             self.whichSlide()
             self.dy = 1.5
@@ -214,7 +212,6 @@ class Player(pygame.sprite.Sprite):
         self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h - self.boundwidth))
         self.bottom = pygame.Rect((self.x+2,(self.y + self.image_h - 5)), (self.image_w-4, 5))
 
-
     def respawn(self, x, y):
         self.x = x
         self.y = y
@@ -225,8 +222,6 @@ class Player(pygame.sprite.Sprite):
         self.dx  = 0
         self.dy  = 0
         self.alive = True
-       
-
 
     # Determines which walking animation to load.
     def whichWalk(self):
@@ -278,14 +273,6 @@ class Player(pygame.sprite.Sprite):
             elif self.direction == "Left":
                 self.image = self.RUNN_LEFT[2]
             self.runtimer += 1
-        #elif self.runtimer < 4*ONEFRAME:
-        #    #self.loadImage(RUNN4)
-        #    if self.direction == "Right":
-        #        self.image = self.RUNN_RIGHT[3]
-        #    elif self.direction == "Left":
-        #        self.image = self.RUNN_LEFT[3]
-        #    #self.loadImage(self.RUNN[3])
-        #    self.runtimer += 1
         else:
             self.runtimer = 0
     def whichIdle(self):
