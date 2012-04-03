@@ -24,7 +24,6 @@ SLID_R = (153,0,11,24)
 ###################
 # Other constants #
 ###################
-#ONEFRAME  = 20
 ONEFRAME = 11
 JUMPLIMIT = 50
 SPRINTMOD = 2
@@ -51,24 +50,23 @@ class Player(pygame.sprite.Sprite):
         self.RUNN_LEFT = []
 
         #Load two images into an array, their transparent bit is (255, 255, 255)
-        self.WALK_RIGHT = self.ss.images_at(WALK_R, colorkey=-1)
-        self.WALK_LEFT  = self.ss.images_at(WALK_L, colorkey=-1)
+        self.WALK_RIGHT = self.ss.images_at(WALK_R, colorkey = -1)
+        self.WALK_LEFT  = self.ss.images_at(WALK_L, colorkey = -1)
 
-        self.RUNN_RIGHT = self.ss.images_at(RUNN_R, colorkey=-1)
-        self.RUNN_LEFT  = self.ss.images_at(RUNN_L, colorkey=-1)
+        self.RUNN_RIGHT = self.ss.images_at(RUNN_R, colorkey = -1)
+        self.RUNN_LEFT  = self.ss.images_at(RUNN_L, colorkey = -1)
 
         self.JUMP_RIGHT = self.ss.image_at(JUMP_R,  colorkey = -1)
         self.JUMP_LEFT  = self.ss.image_at(JUMP_L,  colorkey = -1)
 
-        self.IDLE_RIGHT = self.ss.image_at(IDLE_R,  colorkey=-1)
-        self.IDLE_LEFT  = self.ss.image_at(IDLE_L,  colorkey=-1)
+        self.IDLE_RIGHT = self.ss.image_at(IDLE_R,  colorkey = -1)
+        self.IDLE_LEFT  = self.ss.image_at(IDLE_L,  colorkey = -1)
         
-        self.FALL_RIGHT = self.ss.image_at(FALL_R,  colorkey=-1)
-        self.FALL_LEFT  = self.ss.image_at(FALL_L,  colorkey=-1)
+        self.FALL_RIGHT = self.ss.image_at(FALL_R,  colorkey = -1)
+        self.FALL_LEFT  = self.ss.image_at(FALL_L,  colorkey = -1)
 
-        self.SLID_RIGHT = self.ss.image_at(SLID_R,  colorkey=-1)
-        self.SLID_LEFT  = self.ss.image_at(SLID_L,  colorkey=-1)
-
+        self.SLID_RIGHT = self.ss.image_at(SLID_R,  colorkey = -1)
+        self.SLID_LEFT  = self.ss.image_at(SLID_L,  colorkey = -1)
 
         self.direction = "Right"
         self.whichIdle()
@@ -87,7 +85,6 @@ class Player(pygame.sprite.Sprite):
         #self.dy_max = .8
         self.dx_max = 2
         self.dy_max = 2
-
 
         self.image_w, self.image_h = self.image.get_size()
 
@@ -118,6 +115,10 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(self.image, (self.x, self.y))
 
     def update(self, pressed, screenDimensions):
+        if self.dx > self.dx_max:
+            self.dx = self.dx_max
+        if self.dy > self.dy_max:
+            self.dy = self.dy_max
         if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
             self.onplat = False
             if self.jumptimer > JUMPLIMIT:

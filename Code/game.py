@@ -53,9 +53,6 @@ background = pygame.image.load(BCK)
 
 # The player
 pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
-plat1 = Platform(screen, PLAT1, 400, 650)
-plat2 = Platform(screen, PLAT2, 600, 600)
-plat3 = Platform(screen, PLAT2, 100, 600)
 
 onPlat = False
 isDead = False
@@ -63,7 +60,7 @@ onWall = False
 
 for i in range(LEV):
     LevelComplete = False
-    walls = []
+    walls  = []
     spikes = []
     pstart = []
     shards = []
@@ -72,6 +69,8 @@ for i in range(LEV):
     while LevelComplete == False:
         # time things
         time_passed = clock.tick(FPS)
+
+        
     
         #screen.fill(WHITE)
         screen.blit(background, (0,0))
