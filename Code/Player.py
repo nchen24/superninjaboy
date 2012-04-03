@@ -43,7 +43,7 @@ SLID_R = (153,0,11,24)
 ###################
 #ONEFRAME  = 20
 ONEFRAME = 11
-JUMPLIMIT = 100
+JUMPLIMIT = 50
 SPRINTMOD = 2
 
 
@@ -118,27 +118,6 @@ class Player(pygame.sprite.Sprite):
         self.SLID_LEFT  = self.ss.image_at(SLID_L,  colorkey=-1)
 
 
-
-        ##Load two images into an array, their transparent bit is (255, 255, 255)
-        #self.WALK_RIGHT = self.ss.images_at(((11,0,13,24),(25,0,8,24),(34,0,10,24),(45,0,12,24)), colorkey=-1)
-        #self.WALK_LEFT = self.ss.images_at(((11,25,13,24),(25,25,8,24),(34,25,10,24),(45,25,12,24)), colorkey=-1)
-
-        #self.RUNN_RIGHT = self.ss.images_at(((58,0,16,24),(75,0,11,24),(87,0,11,24),(99,0,18,24)), colorkey=-1)
-        #self.RUNN_LEFT = self.ss.images_at(((58,25,16,24),(75,25,11,24),(87,25,11,24),(99,25,18,24)), colorkey=-1)
-
-        #self.JUMP_RIGHT= self.ss.image_at((118,0,15,24), colorkey = -1)
-        #self.JUMP_LEFT= self.ss.image_at((118,25,15,24), colorkey = -1)
-
-        #self.IDLE_RIGHT = self.ss.image_at((0,0,10,24),colorkey=-1)
-        #self.IDLE_LEFT = self.ss.image_at((0,25,10,24),colorkey=-1)
-        #
-        #self.FALL_RIGHT = self.ss.image_at((134,0,18,24),colorkey=-1)
-        #self.FALL_LEFT = self.ss.image_at((134,25,18,24),colorkey=-1)
-
-        #self.SLID_RIGHT = self.ss.image_at((153,0,11,24),colorkey=-1)
-        #self.SLID_LEFT = self.ss.image_at((153,25,11,24),colorkey=-1)
-       
-
         self.direction = "Right"
         self.whichIdle()
 
@@ -154,7 +133,6 @@ class Player(pygame.sprite.Sprite):
 
         #self.dx_max = .8
         #self.dy_max = .8
-
         self.dx_max = 2
         self.dy_max = 2
 
@@ -198,12 +176,12 @@ class Player(pygame.sprite.Sprite):
 
             self.whichJump()
             #self.dy = -.8
-            self.dy = -1.5
+            self.dy = -2
 
-        elif self.rect.bottomright[1] < screenDimensions[1] and self.onplat == False and self.onwall == False:
+        elif self.onplat == False and self.onwall == False:
             self.whichFall()
             #self.dy = .8
-            self.dy = 1.5
+            self.dy = 2
 
         else:
             self.whichIdle()
@@ -252,17 +230,16 @@ class Player(pygame.sprite.Sprite):
         else:
             self.dx = 0
 
-        if self.onwall == True and self.rect.bottomright[1] < screenDimensions[1]:
+
+
+        if self.onwall == True and self.onplat == False:
             self.whichSlide()
-            self.dy = .2
+            self.dy = 1.5
             self.dx = 0
             self.jumped = False
             self.apex = False
             self.jumptimer = 0
             #self.canJump = True
-        elif self.onwall == True and self.rect.bottomright[1] == screenDimensions[1]:
-            #self.dx = 0
-            pass
 
         # Move the bounding box
         self.x = self.x + self.dx
@@ -374,10 +351,11 @@ class Player(pygame.sprite.Sprite):
             self.image = self.FALL_RIGHT
         elif self.direction == "Left":
             self.image = self.FALL_LEFT
+
     def whichSlide(self):
-        if self.direction == "Right":
+        if self.contact_side == "Right":
             self.image = self.SLID_RIGHT
-        elif self.direction == "Left":
+        elif self.contact_side == "Left":
             self.image = self.SLID_LEFT
 
 

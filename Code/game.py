@@ -61,6 +61,7 @@ plat3 = Platform(screen, PLAT2, 100, 600)
 
 onPlat = False
 isDead = False
+onWall = False
 
 for i in range(LEV):
     LevelComplete = False
@@ -79,32 +80,55 @@ for i in range(LEV):
     
         for w in walls:
             w.draw()
-            if w.rect.colliderect(snb.bottom) and (w.active == False or w.active == True):
+
+            if w.rect.colliderect(snb.bottom) and (w.floor_active == False or w.floor_active == True):
                 snb.dy = 0
                 snb.jumped = False
                 snb.jumptimer = 0
                 snb.apex = False
                 snb.onplat = True
-                w.active = True
-                #print("activated")
-            elif not(w.rect.colliderect(snb.bottom)) and w.active == True:
-                w.active = False
+                w.floor_active = True
+            elif not(w.rect.colliderect(snb.bottom)) and w.floor_active == True:
+                w.floor_active = False
     
-            if w.rect.colliderect(snb.left):
+            if w.rect.colliderect(snb.left) and (w.wall_active == False or w.wall_active == True) and not(w.rect.colliderect(snb.bottom)):
                 snb.contact_side = "Left"
-                snb.x = (w.x + w.image_w)
-    
-            if w.rect.colliderect(snb.right):
+                snb.x = (w.x + w.image_w - 1)
+                snb.onwall = True
+                w.wall_active = True
+            elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True) and not(w.rect.colliderect(snb.bottom)):
                 snb.contact_side = "Right"
-                snb.x = (w.x - snb.image_w)
+                snb.x = (w.x - snb.image_w + 1)
+                snb.onwall = True
+                w.wall_active = True
+            elif (not(w.rect.colliderect(snb.right)) and not(w.rect.colliderect(snb.left))):
+                w.wall_active = False
     
+
         onPlat = False
+        onWall = False
+
+        if snb.onwall == True:
+            print("sliding")
+        else:
+            print("standing/falling")
+        if snb.onplat == True:
+            print("on dat plat")
+        else:
+            print("tha plat ain't thea")
+
+
         for w in walls:
-            if w.active == True:
+            if w.floor_active == True:
                 onPlat = True
+            if w.wall_active == True:
+                onWall = True
+
         if onPlat == False:
             snb.onplat = False
-    
+        if onWall == False:
+            snb.onwall = False
+
         for s in spikes:
             s.draw()
             if s.rect.colliderect(snb.rect):
@@ -122,6 +146,8 @@ for i in range(LEV):
         snb.draw()
     
         pygame.display.flip()
+
+
         for event in pygame.event.get():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
@@ -160,8 +186,4 @@ for i in range(LEV):
     #text = gameover_font.render("LEVEL COMPLETE!", 1, (251, 217, 21))
     #screen.blit(text,(300,250))
     
-        # Final score text
-        #final_score_text = final_score_font.render("FINAL SCORE: " + str(score), 1, (61, 255, 255))
-        #screen.blit(final_score_text,(300,300))
-    
-    pygame.display.flip()
+    #pygame.display.flip()
