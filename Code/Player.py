@@ -27,6 +27,7 @@ SLID_R = (153,0,11,24)
 ONEFRAME = 11
 JUMPLIMIT = 50
 SPRINTMOD = 2
+RES = (1024, 768)
 
 #################
 # Player Sprite #
@@ -119,6 +120,10 @@ class Player(pygame.sprite.Sprite):
             self.dx = self.dx_max
         if self.dy > self.dy_max:
             self.dy = self.dy_max
+
+        if self.x < 0 or self.x > RES[0] or self.y < 0 or self.y > RES[1]:
+            self.alive = False
+
         if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
             self.onplat = False
             if self.jumptimer > JUMPLIMIT:

@@ -1,3 +1,6 @@
+April 3rd 2012 19:27
+    -If the player is off the screen, it now resets the level
+
 April 3rd 2012 19:13
     -Slide animation working
     -Spritesheet moved from player.py to Spritesheet.py

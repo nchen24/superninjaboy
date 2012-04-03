@@ -12,6 +12,7 @@ WHITE = (255, 255, 255)
 SKY = "../assets/sky_background.png"
 BCK = "../assets/bluesky.gif"
 LEV = 4
+RES = (1024, 768)
 
 def quit():
     pygame.quit()
@@ -44,7 +45,7 @@ clock = pygame.time.Clock()
 
 gameover_font = pygame.font.Font(None, 50)
 
-screenDimensions = (1024, 768)
+screenDimensions = RES 
 window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
@@ -70,8 +71,6 @@ for i in range(LEV):
         # time things
         time_passed = clock.tick(FPS)
 
-        
-    
         #screen.fill(WHITE)
         screen.blit(background, (0,0))
     
