@@ -9,8 +9,6 @@ from Shard import *
 # Constants
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-PLAT1 = "../assets/platform1-2.gif"
-PLAT2 = "../assets/platform1-3.gif"
 SKY = "../assets/sky_background.png"
 BCK = "../assets/bluesky.gif"
 LEV = 4
