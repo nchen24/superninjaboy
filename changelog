@@ -1,3 +1,9 @@
+April 2nd 2012 22:42
+    -Now can play multiple levels.
+    To do:
+    -Fix wall jumping
+    -Add screen that displays time spent on level at the end of each level
+
 April 2nd 2012 21:57
     -Architecture in place to have a sky background, but slows FPS drastically
 
