@@ -1,7 +1,10 @@
-import pygame, sys, os, Player
+import pygame, sys, os, Player, Wall, Spike, Shard
 from pygame.locals import *
 from Player import *
 from Platform import *
+from Wall import *
+from Spike import *
+from Shard import *
 
 # Constants
 BLACK = (0, 0, 0)
@@ -13,60 +16,6 @@ SKY = "../assets/sky_background.png"
 def quit():
     pygame.quit()
     sys.exit(0)
-
-
-class Wall(pygame.sprite.Sprite):
-    def __init__(self, screen, x, y):
-        self.x = x
-        self.y = y
-        self.w = 16
-        self.h = 16
-        self.screen = screen
-        self.image = pygame.image.load("../Assets/Walls/onewall.png")
-        self.image_w, self.image_h = self.image.get_size()
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (self.x, self.y)
-        self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
-
-        self.active = False
-
-    def draw(self):
-        self.screen.blit(self.image, (self.x, self.y))
-
-
-class Spike(pygame.sprite.Sprite):
-    def __init__(self,screen,x,y):
-        self.x = x
-        self.y = y
-        self.w = 16
-        self.h = 16
-        self.screen = screen
-        self.image = pygame.image.load("../assets/spike.png")
-        self.image_w, self.image_h = self.image.get_size()
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (self.x, self.y)
-        self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
-
-    def draw(self):
-        self.screen.blit(self.image, (self.x, self.y))
-
-class Shard(pygame.sprite.Sprite):
-    def __init__(self, screen, x,y):
-        self.x = x
-        self.y = y
-        self.screen = screen
-        self.image = pygame.image.load("../assets/shard.png")
-        self.image_w, self.image_h = self.image.get_size()
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (self.x, self.y)
-        self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
-
-    def draw(self):
-        self.screen.blit(self.image, (self.x, self.y))
-
 
 walls = []
 spikes = []
