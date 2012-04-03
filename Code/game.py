@@ -12,6 +12,7 @@ WHITE = (255, 255, 255)
 PLAT1 = "../assets/platform1-2.gif"
 PLAT2 = "../assets/platform1-3.gif"
 SKY = "../assets/sky_background.png"
+BCK = "../assets/bluesky.png"
 
 def quit():
     pygame.quit()
@@ -23,7 +24,9 @@ pstart = []
 shards = []
 
 def genwall(screen):
-    mapFile = open("../Levels/Level1.txt", 'r') 
+    level = "2"
+    file  = "../Levels/Level%s.txt" %level
+    mapFile = open(file, 'r') 
     vc = 0
     hc = 0
     for line in mapFile:
@@ -54,7 +57,7 @@ window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
 background = pygame.Surface(screen.get_size())
-#background = pygame.image.load(SKY)
+background = pygame.image.load(SKY)
 
 
 # The player
@@ -73,7 +76,6 @@ snb = Player(screen, pstart[0], pstart[1])
 LevelComplete = False
 
 while True:
-
     if LevelComplete == False:
         # time things
         time_passed = clock.tick(FPS)

@@ -1,3 +1,12 @@
+April 2nd 2012 21:57
+    -Architecture in place to have a sky background, but slows FPS drastically
+
+April 2nd 2012 21:24
+    -Moved Wall, Spike, Shard to separate .py files
+    -Horizontal and vertical collision with walls working
+    -Removed platforms (running Lv 1)
+    -Slide animation not working, but wall jump somewhat working 
+
 April 2nd 2012 03:06
     -Changed sprite sheet loading to constants for better readability
 
