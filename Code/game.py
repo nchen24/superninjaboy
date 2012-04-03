@@ -12,7 +12,7 @@ WHITE = (255, 255, 255)
 PLAT1 = "../assets/platform1-2.gif"
 PLAT2 = "../assets/platform1-3.gif"
 SKY = "../assets/sky_background.png"
-BCK = "../assets/bluesky.png"
+BCK = "../assets/bluesky.gif"
 LEV = 4
 
 def quit():
@@ -51,7 +51,7 @@ window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
 pygame.display.set_caption('Super Ninja Boy!')
 screen = pygame.display.get_surface()
 background = pygame.Surface(screen.get_size())
-#background = pygame.image.load(SKY)
+background = pygame.image.load(BCK)
 
 # The player
 pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
@@ -75,8 +75,8 @@ for i in range(LEV):
         # time things
         time_passed = clock.tick(FPS)
     
-        screen.fill(WHITE)
-        #screen.blit(background, (0,0))
+        #screen.fill(WHITE)
+        screen.blit(background, (0,0))
     
         for w in walls:
             w.draw()
@@ -91,12 +91,12 @@ for i in range(LEV):
             elif not(w.rect.colliderect(snb.bottom)) and w.floor_active == True:
                 w.floor_active = False
     
-            if w.rect.colliderect(snb.left) and (w.wall_active == False or w.wall_active == True) and not(w.rect.colliderect(snb.bottom)):
+            if w.rect.colliderect(snb.left) and (w.wall_active == False or w.wall_active == True):
                 snb.contact_side = "Left"
                 snb.x = (w.x + w.image_w - 1)
                 snb.onwall = True
                 w.wall_active = True
-            elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True) and not(w.rect.colliderect(snb.bottom)):
+            elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True):
                 snb.contact_side = "Right"
                 snb.x = (w.x - snb.image_w + 1)
                 snb.onwall = True

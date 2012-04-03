@@ -4,22 +4,7 @@ from pygame.locals import *
 ###############################
 # Constants for image loading #
 ###############################
-IDLE1 = "../assets/idle.gif"
-FALL1 = "../assets/fall.gif"
-JUMP1 = "../assets/jump.gif"
-WALK1 = "../assets/walking_1.gif"
-WALK2 = "../assets/walking_2.gif"
-WALK3 = "../assets/walking_3.gif"
-WALK4 = "../assets/walking_4.gif"
-RUNN1 = "../assets/running_1.gif"
-RUNN2 = "../assets/running_2.gif"
-RUNN3 = "../assets/running_3.gif"
-RUNN4 = "../assets/running_4.gif"
-SLID1 = "../assets/wall_slide.gif"
-PLAT1 = "../assets/platform1.png"
 SS = "../assets/sprite_sheet_colors_fixed.png"
-
-
 
 IDLE_L = (0,25,10,24)
 FALL_L = (134,25,18,24) 
