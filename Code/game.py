@@ -104,14 +104,14 @@ for i in range(LEV):
         onPlat = False
         onWall = False
 
-        if snb.onwall == True:
-            print("sliding")
-        else:
-            print("standing/falling")
-        if snb.onplat == True:
-            print("on dat plat")
-        else:
-            print("tha plat ain't thea")
+        #if snb.onwall == True:
+            #print("sliding")
+        #else:
+            #print("standing/falling")
+        #if snb.onplat == True:
+            #print("on dat plat")
+        #else:
+            #print("tha plat ain't thea")
 
 
         for w in walls:

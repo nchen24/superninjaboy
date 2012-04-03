@@ -116,10 +116,6 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(self.image, (self.x, self.y))
 
     def update(self, pressed, screenDimensions):
-        if self.dx > self.dx_max:
-            self.dx = self.dx_max
-        if self.dy > self.dy_max:
-            self.dy = self.dy_max
 
         if self.x < 0 or self.x > RES[0] or self.y < 0 or self.y > RES[1]:
             self.alive = False
