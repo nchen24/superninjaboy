@@ -1,3 +1,11 @@
+April 3rd 2012 19:13
+    -Slide animation working
+    -Spritesheet moved from player.py to Spritesheet.py
+    -Added background compressed with .gif rather than .png to save load time
+     reduced from ~700kb => ~250kb
+    BUGS:
+    -Jumping while next to a wall causes erratic behavior
+
 April 2nd 2012 22:42
     -Now can play multiple levels.
     To do:
