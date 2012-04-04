@@ -216,6 +216,20 @@ class Player(pygame.sprite.Sprite):
                 self.dx = 2
                 self.wallJump_Right = True
 
+            elif self.contact_side == "Right" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.canJump == True:
+                self.direction = "Left"
+                self.onplat = False
+                if self.jumptimer > JUMPLIMIT:
+                    self.apex = True
+                    self.canJump = False
+                else:
+                    self.jumptimer += 1
+
+                self.image = self.JUMP_LEFT
+                self.dy = -2
+                self.dx = -2
+                self.wallJump_LEFT = True
+
             else:
                 self.whichSlide()
                 self.dy = 1.5
