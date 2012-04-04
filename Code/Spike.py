@@ -8,7 +8,7 @@ class Spike(pygame.sprite.Sprite):
         self.w = 16
         self.h = 16
         self.screen = screen
-        self.image = pygame.image.load("../assets/spike.png")
+        self.image = pygame.image.load("../assets/spike.gif")
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()

@@ -6,7 +6,7 @@ class Shard(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.screen = screen
-        self.image = pygame.image.load("../assets/shard.png")
+        self.image = pygame.image.load("../assets/shard.gif")
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()
