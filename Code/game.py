@@ -79,7 +79,7 @@ bestTimes = []
 for i in range(LEV):
     bestTimes.append(99999)
 
-for i in range(LEV):
+for i in range(3, LEV):
     LevelComplete = False
     time = 0
     walls  = []
@@ -101,8 +101,6 @@ for i in range(LEV):
         levelTime = font.render(str((time - time%10) / 1000.0), 1, (255, 0, 0))
         screen.blit(levelTime, (80, 58))
 
-        for s in spawners:
-            s.update()
 
         for w in walls:
             w.draw()
@@ -122,14 +120,12 @@ for i in range(LEV):
                 w.floor_active = True
                 snb.wallJump_Left = False
                 snb.wallJump_Right = False
-                #print("bottom")
             elif not(w.rect.colliderect(snb.bottom)) and w.floor_active == True:
                 w.floor_active = False
 
             if w.rect.colliderect(snb.top):
                 snb.dy = 0
                 snb.apex = True
-                #print("hit ya head")
 
             if w.rect.colliderect(snb.left) and (w.wall_active == False or w.wall_active == True):
 
@@ -142,7 +138,6 @@ for i in range(LEV):
                 w.wall_active = True
                 snb.wallJump_Left = False
                 snb.wallJump_Right = False
-                #print("left")
 
             elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True):
                 
@@ -161,12 +156,6 @@ for i in range(LEV):
         onPlat = False
         onWall = False
 
-        #if snb.onwall == True:
-            #print("sliding")
-        #else:
-            #print("standing/falling")
-       
-
         for w in walls:
             if w.floor_active == True:
                 onPlat = True
@@ -181,15 +170,16 @@ for i in range(LEV):
         if onPlat == False and onWall == False:
             snb.canJump = False
 
-        #if snb.onplat == True:
-            #print("on dat plat")
-        #else:
-            #print("tha plat ain't thea")
-
         for s in spikes:
             s.draw()
             if s.rect.colliderect(snb.rect):
                 snb.alive = False
+
+        for sp in spawners:
+            sp.update()
+            for s in sp.shurikens:
+                if s.rect.colliderect(snb.rect):
+                    snb.alive = False
     
         for h in shards:
             h.draw()
@@ -203,11 +193,6 @@ for i in range(LEV):
         snb.update(pressed, screenDimensions)
         snb.draw()
     
-        #print("new press: " + str(snb.current_press_time))
-        #print("old press: " + str(snb.old_press_time))
-        #print("relase press " + str(snb.release_time))
-
-
         pygame.display.flip()
 
         for event in pygame.event.get():

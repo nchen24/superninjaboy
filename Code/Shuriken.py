@@ -16,7 +16,7 @@ class Shuriken(pygame.sprite.Sprite):
         elif type == "U" or type == "D":
             self.dx = 0
             self.dy = 8
-            if type == "U": self.dy += -1
+            if type == "U": self.dy *= -1
         else:
             self.dx = 0
             self.dy = 0
