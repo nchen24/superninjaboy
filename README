@@ -1,0 +1,8 @@
+Controls:
+    Left arrow:  Left
+    Right arrow: Right
+    Left shift:  Sprint
+    Space bar :  Jump
+
+How to run:
+    run with python game.py from the Code folder
