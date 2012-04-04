@@ -299,7 +299,6 @@ class Player(pygame.sprite.Sprite):
         elif self.contact_side == "Left":
             self.image = self.SLID_LEFT
 
-
     ## Takes in state and loads the appropriate image.
     #def loadImage(self, state):
     #    if self.direction == "Right":

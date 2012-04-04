@@ -20,11 +20,10 @@ def quit():
 
 def genwall(screen, level):
     mapFile = open("../Levels/Level%s.txt" %level, 'r') 
-    vc = 0
-    hc = 0
+    vc = -1
     for line in mapFile:
-        vc += 1
-        hc =  0
+        vc +=  1
+        hc  = -1 
         for character in line:
             hc +=1
             if character == "#":
@@ -58,6 +57,8 @@ pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
 onPlat = False
 isDead = False
 onWall = False
+frame = pygame.image.load("../assets/frame.gif")
+
 
 for i in range(LEV):
     LevelComplete = False
@@ -73,6 +74,7 @@ for i in range(LEV):
 
         #screen.fill(WHITE)
         screen.blit(background, (0,0))
+        screen.blit(frame, (16,16))
     
         for w in walls:
             w.draw()
@@ -100,7 +102,6 @@ for i in range(LEV):
             elif (not(w.rect.colliderect(snb.right)) and not(w.rect.colliderect(snb.left))):
                 w.wall_active = False
     
-
         onPlat = False
         onWall = False
 
@@ -112,7 +113,6 @@ for i in range(LEV):
             #print("on dat plat")
         #else:
             #print("tha plat ain't thea")
-
 
         for w in walls:
             if w.floor_active == True:

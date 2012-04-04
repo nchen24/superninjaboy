@@ -8,7 +8,7 @@ class Wall(pygame.sprite.Sprite):
         self.w = 16
         self.h = 16
         self.screen = screen
-        self.image = pygame.image.load("../Assets/Walls/onewall.png")
+        self.image = pygame.image.load("../Assets/Walls/onewall.gif")
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()
