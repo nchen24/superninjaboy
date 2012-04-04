@@ -107,7 +107,13 @@ for i in range(LEV):
         for w in walls:
             w.draw()
 
-            if w.rect.colliderect(snb.bottom) and (w.floor_active == False or w.floor_active == True):
+            if w.rect.colliderect(snb.bottom) and (w.floor_active == False or w.floor_active == True)\
+                or ((w.rect.colliderect(snb.left) and w.rect.colliderect(snb.bottom)) and (w.wall_active == False or w.wall_active == True))\
+                or ((w.rect.colliderect(snb.right) and w.rect.colliderect(snb.bottom)) and (w.wall_active == False or w.wall_active == True)):
+
+                if pressed['Space'] == False:
+                    snb.canJump = True
+
                 snb.dy = 0
                 snb.jumped = False
                 snb.jumptimer = 0
@@ -126,6 +132,10 @@ for i in range(LEV):
                 #print("hit ya head")
 
             if w.rect.colliderect(snb.left) and (w.wall_active == False or w.wall_active == True):
+
+                if pressed['Space'] == False:
+                    snb.canJump = True
+
                 snb.contact_side = "Left"
                 snb.x = (w.x + w.image_w - 1)
                 snb.onwall = True
@@ -133,7 +143,12 @@ for i in range(LEV):
                 snb.wallJump_Left = False
                 snb.wallJump_Right = False
                 #print("left")
+
             elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True):
+                
+                if pressed['Space'] == False:
+                    snb.canJump = True
+                
                 snb.contact_side = "Right"
                 snb.x = (w.x - snb.image_w + 1)
                 snb.onwall = True
@@ -163,6 +178,9 @@ for i in range(LEV):
         if onWall == False:
             snb.onwall = False
 
+        if onPlat == False and onWall == False:
+            snb.canJump = False
+
         #if snb.onplat == True:
             #print("on dat plat")
         #else:
@@ -185,6 +203,11 @@ for i in range(LEV):
         snb.update(pressed, screenDimensions)
         snb.draw()
     
+        #print("new press: " + str(snb.current_press_time))
+        #print("old press: " + str(snb.old_press_time))
+        #print("relase press " + str(snb.release_time))
+
+
         pygame.display.flip()
 
         for event in pygame.event.get():
@@ -200,6 +223,8 @@ for i in range(LEV):
                 elif event.key == K_SPACE:
                     pressed['Space'] = True
                     snb.jumped = True
+                    snb.old_press_time = snb.current_press_time
+                    snb.current_press_time = time
             elif event.type == KEYUP:
                 if event.key == K_LEFT:
                     pressed['Left'] = False
@@ -209,7 +234,8 @@ for i in range(LEV):
                     pressed['Shift'] = False
                 elif event.key == K_SPACE:
                     pressed['Space'] = False
-                    snb.canJump = True
+                    #snb.canJump = True
+                    snb.release_time = time
     
         # Handles end-level actions
     
