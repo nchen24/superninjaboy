@@ -78,12 +78,9 @@ class Player(pygame.sprite.Sprite):
         self.dx  = 0
         self.dy  = 0
 
-        #self.ddx = .1
         self.ddx = .5
         self.ddy = 0
 
-        #self.dx_max = .8
-        #self.dy_max = .8
         self.dx_max = 2
         self.dy_max = 2
 
@@ -129,12 +126,10 @@ class Player(pygame.sprite.Sprite):
                 self.jumptimer += 1
 
             self.whichJump()
-            #self.dy = -.8
             self.dy = -2
 
         elif self.onplat == False and self.onwall == False:
             self.whichFall()
-            #self.dy = .8
             self.dy = 2
 
         else:
@@ -184,14 +179,26 @@ class Player(pygame.sprite.Sprite):
         else:
             self.dx = 0
 
+
         if self.onwall == True and self.onplat == False:
-            self.whichSlide()
-            self.dy = 1.5
-            self.dx = 0
-            self.jumped = False
-            self.apex = False
-            self.jumptimer = 0
-            #self.canJump = True
+
+            if self.contact_side == "Left" and pressed['Right']:
+                self.dx = 2
+
+            elif self.contact_side == "Right" and pressed['Left']:
+                self.dx = -2
+
+            else:
+                self.whichSlide()
+                self.dy = 1.5
+                self.dx = 0
+                self.jumped = False
+                self.apex = False
+                self.jumptimer = 0
+                #self.canJump = True
+
+
+
 
         # Move the bounding box
         self.x = self.x + self.dx
