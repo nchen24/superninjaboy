@@ -1,3 +1,10 @@
+April 4th 2012 05:31
+    -Added levels 5, 6
+    -Changed levels 5, 6 to 7, 8 as they were too difficult
+    -Changed shuriken class (added update, other details)
+    -Added multiple animations for spikes
+    -Added support for spikes in four directions
+ 
 April 4th 2012 00:47
     -Added shuriken class
     -Changed shard and spike to spritesheets

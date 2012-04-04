@@ -9,11 +9,11 @@ class Shuriken(pygame.sprite.Sprite):
         self.y = y
         self.active = True
         self.timer = 0
-        if type == "L" or "R":
+        if type == "L" or type == "R":
             self.dx = 8
             self.dy = 0
             if type == "L": self.dx *= -1
-        elif type == "U" or "D":
+        elif type == "U" or type == "D":
             self.dx = 0
             self.dy = 8
             if type == "U": self.dy += -1
@@ -41,6 +41,7 @@ class Shuriken(pygame.sprite.Sprite):
             self.image = self.IMGS[1]
         else:
             self.timer = 0
+        self.timer += 1
         self.image_w, self.image_h = self.image.get_size()
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)

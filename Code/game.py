@@ -27,19 +27,21 @@ def genwall(screen, level):
         for character in line:
             if character == "#":
                 walls.append(Wall(screen, hc*16, vc*16))
-            if character == "^":
+            elif character == "^":
                 spikes.append(Spike(screen, hc*16, vc*16, "U"))
-            if character == ">":
+            elif character == ">":
                 spikes.append(Spike(screen, hc*16, vc*16, "R"))
-            if character == "V":
+            elif character == "V":
                 spikes.append(Spike(screen, hc*16, vc*16, "D"))
-            if character == "<":
+            elif character == "<":
                 spikes.append(Spike(screen, hc*16, vc*16, "L"))
-            if character == "P":
+            elif character == "P":
                 pstart.append(hc*16)
                 pstart.append(vc*16)
-            if character == "E":
+            elif character == "E":
                 shards.append(Shard(screen, hc*16, vc*16))
+            elif character == "K":
+                shuris.append(Shuriken(screen, hc*16, vc*16, "M"))
             hc +=1
         vc +=  1
 
@@ -71,13 +73,14 @@ bestTimes = []
 for i in range(LEV):
     bestTimes.append(99999)
 
-for i in range(5, LEV):
+for i in range(LEV):
     LevelComplete = False
     time = 0
     walls  = []
     spikes = []
     pstart = []
     shards = []
+    shuris = []
     genwall(screen, i+1)
     snb = Player(screen, pstart[0], pstart[1])
     while LevelComplete == False:
@@ -91,7 +94,11 @@ for i in range(5, LEV):
         screen.blit(frame, (16,16))
         levelTime = font.render(str((time - time%10) / 1000.0), 1, (255, 0, 0))
         screen.blit(levelTime, (80, 58))
-    
+
+        for s in shuris:
+            s.update()
+            s.draw()
+
         for w in walls:
             w.draw()
 
