@@ -98,9 +98,15 @@ for i in range(LEV):
                 w.floor_active = True
                 snb.wallJump_Left = False
                 snb.wallJump_Right = False
-                print("bottom")
+                #print("bottom")
             elif not(w.rect.colliderect(snb.bottom)) and w.floor_active == True:
                 w.floor_active = False
+
+            if w.rect.colliderect(snb.top):
+                snb.dy = 0
+                snb.apex = True
+                #print("hit ya head")
+
     
             if w.rect.colliderect(snb.left) and (w.wall_active == False or w.wall_active == True):
                 snb.contact_side = "Left"
@@ -109,7 +115,7 @@ for i in range(LEV):
                 w.wall_active = True
                 snb.wallJump_Left = False
                 snb.wallJump_Right = False
-                print("left")
+                #print("left")
             elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True):
                 snb.contact_side = "Right"
                 snb.x = (w.x - snb.image_w + 1)

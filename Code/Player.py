@@ -91,12 +91,13 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
-        self.bottom = pygame.Rect((self.x + 7,(self.y + self.image_h - 14)), (self.image_w - 4, 5))
+        self.top = pygame.Rect((self.x + 5, self.y), (self.image_w - 10, 5))
+        self.bottom = pygame.Rect((self.x+5,(self.y + self.image_h - 5)), (self.image_w-10, 5))
 
         # pygame.Rect takes ((start_x, start_y), (width, height))[EXPERIMENTAL]
         self.boundwidth = 2
-        self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h-self.boundwidth))
-        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h - self.boundwidth))
+        self.left = pygame.Rect((self.x, self.y+5), (self.boundwidth, self.image_h-self.boundwidth - 5))
+        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y+5), (self.boundwidth, self.image_h - self.boundwidth - 5))
 
         self.alive = True
         self.jumped = False
@@ -131,14 +132,14 @@ class Player(pygame.sprite.Sprite):
             self.whichJump()
             self.dy = -2
 
-            if self.onplat == True:
-                print("on dat plat")
+            #if self.onplat == True:
+                #print("on dat plat")
 
             if self.wallJump_Left == True and self.onplat == False:
                 self.x += -2
             elif self.wallJump_Right == True and self.onplat == False:
                 self.x += 2
-                print("Go Right!")
+                #print("Go Right!")
 
             self.onplat = False
 
@@ -193,7 +194,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.dx = 0
 
-        #HANDLES JUMPING OFF OF A WALL
+        # HANDLES JUMPING OFF OF A WALL
         if self.onwall == True and self.onplat == False:
 
             if self.contact_side == "Left" and pressed['Right']:
@@ -237,7 +238,7 @@ class Player(pygame.sprite.Sprite):
                 self.jumped = False
                 self.apex = False
                 self.jumptimer = 0
-                self.canJump = True
+                #self.canJump = True
 
 
         # Move the bounding box
@@ -256,8 +257,10 @@ class Player(pygame.sprite.Sprite):
         self.right.top = self.right.top + self.dy
         self.right.left = self.right.left + self.dx
 
-        self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h - self.boundwidth))
-        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h - self.boundwidth))
+        self.left = pygame.Rect((self.x, self.y+5), (self.boundwidth, self.image_h-self.boundwidth-5))
+        self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y+5), (self.boundwidth, self.image_h - self.boundwidth - 5))
+
+        self.top = pygame.Rect((self.x + 5, self.y), (self.image_w - 10, 5))
         self.bottom = pygame.Rect((self.x+5,(self.y + self.image_h - 5)), (self.image_w-10, 5))
 
     def respawn(self, x, y):
