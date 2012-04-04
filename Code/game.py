@@ -11,7 +11,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 SKY = "../assets/sky_background.png"
 BCK = "../assets/bluesky.gif"
-LEV = 4
+LEV = 1
 RES = (1024, 768)
 
 def quit():
@@ -20,12 +20,10 @@ def quit():
 
 def genwall(screen, level):
     mapFile = open("../Levels/Level%s.txt" %level, 'r') 
-    vc = -1
+    vc = 0 
     for line in mapFile:
-        vc +=  1
-        hc  = -1 
+        hc  = 0 
         for character in line:
-            hc +=1
             if character == "#":
                 walls.append(Wall(screen, hc*16, vc*16))
             if character == "^":
@@ -35,6 +33,8 @@ def genwall(screen, level):
                 pstart.append(vc*16)
             if character == "E":
                 shards.append(Shard(screen, hc*16, vc*16))
+            hc +=1
+        vc +=  1
 
 pygame.init()
 
@@ -60,11 +60,13 @@ onPlat = False
 isDead = False
 onWall = False
 frame = pygame.image.load("../assets/frame.gif")
-time = 0
-
+bestTimes = []
+for i in range(LEV):
+    bestTimes.append(99999)
 
 for i in range(LEV):
     LevelComplete = False
+    time = 0
     walls  = []
     spikes = []
     pstart = []
@@ -72,9 +74,9 @@ for i in range(LEV):
     genwall(screen, i+1)
     snb = Player(screen, pstart[0], pstart[1])
     while LevelComplete == False:
+        # time things
         levClock.tick()
         time = time + levClock.get_time()
-        # time things
         time_passed = clock.tick(FPS)
 
         #screen.fill(WHITE)
@@ -151,7 +153,6 @@ for i in range(LEV):
     
         pygame.display.flip()
 
-
         for event in pygame.event.get():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
@@ -191,3 +192,10 @@ for i in range(LEV):
     #screen.blit(text,(300,250))
     
     #pygame.display.flip()
+    
+    # Player beat the level
+    if(time < bestTimes[i]):
+        bestTimes[i] = ((time - time%10) / 1000.0)
+for i in range(LEV):
+    print "Best time for level %d is %s seconds." %(i, str(round(bestTimes[i],2)))
+
