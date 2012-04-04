@@ -11,7 +11,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 SKY = "../assets/sky_background.png"
 BCK = "../assets/bluesky.gif"
-LEV = 1
+LEV = 4
 RES = (1024, 768)
 
 def quit():
@@ -95,6 +95,8 @@ for i in range(LEV):
                 snb.apex = False
                 snb.onplat = True
                 w.floor_active = True
+                snb.wallJump_Left = False
+                snb.wallJump_Right = False
             elif not(w.rect.colliderect(snb.bottom)) and w.floor_active == True:
                 w.floor_active = False
     
@@ -103,11 +105,16 @@ for i in range(LEV):
                 snb.x = (w.x + w.image_w - 1)
                 snb.onwall = True
                 w.wall_active = True
+                snb.wallJump_Left = False
+                snb.wallJump_Right = False
+                print("contact left")
             elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True):
                 snb.contact_side = "Right"
                 snb.x = (w.x - snb.image_w + 1)
                 snb.onwall = True
                 w.wall_active = True
+                snb.wallJump_Left = False
+                snb.wallJump_Right = False
             elif (not(w.rect.colliderect(snb.right)) and not(w.rect.colliderect(snb.left))):
                 w.wall_active = False
     
