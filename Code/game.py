@@ -107,7 +107,6 @@ for i in range(LEV):
                 snb.apex = True
                 #print("hit ya head")
 
-    
             if w.rect.colliderect(snb.left) and (w.wall_active == False or w.wall_active == True):
                 snb.contact_side = "Left"
                 snb.x = (w.x + w.image_w - 1)
@@ -168,6 +167,11 @@ for i in range(LEV):
         snb.update(pressed, screenDimensions)
         snb.draw()
     
+        if snb.jumped == True:
+            print("true")
+        else:
+            print("false")
+
         pygame.display.flip()
 
         for event in pygame.event.get():

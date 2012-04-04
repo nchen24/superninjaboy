@@ -111,6 +111,7 @@ class Player(pygame.sprite.Sprite):
         self.contact_side = None
         self.wallJump_Left = False
         self.wallJump_Right = False
+        self.walltimer = 0
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -120,10 +121,11 @@ class Player(pygame.sprite.Sprite):
         if self.x < 0 or self.x > RES[0] or self.y < 0 or self.y > RES[1]:
             self.alive = False
 
-        if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
+        #if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
+        if pressed['Space'] == True and not(self.jumped) and not(self.apex):
+            self.canJump = False
             if self.jumptimer > JUMPLIMIT:
                 self.apex = True
-                self.canJump = False
                 self.wallJump_Left = False
                 self.wallJump_Right = False
             else:
@@ -194,6 +196,15 @@ class Player(pygame.sprite.Sprite):
         else:
             self.dx = 0
 
+
+
+        if self.walltimer <> 35:
+            self.walltimer += 1
+
+        if self.walltimer == 35:
+            self.walltimer = 0
+
+
         # HANDLES JUMPING OFF OF A WALL
         if self.onwall == True and self.onplat == False:
 
@@ -203,12 +214,13 @@ class Player(pygame.sprite.Sprite):
             elif self.contact_side == "Right" and pressed['Left']:
                 self.dx = -2
 
-            elif self.contact_side == "Left" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.canJump == True:
+            #elif self.contact_side == "Left" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.canJump == True and self.walltimer == 0:
+            elif self.contact_side == "Left" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.walltimer == 0:
+                self.canJump = False
                 self.direction = "Right"
                 self.onplat = False
                 if self.jumptimer > JUMPLIMIT:
                     self.apex = True
-                    self.canJump = False
                 else:
                     self.jumptimer += 1
 
@@ -216,13 +228,15 @@ class Player(pygame.sprite.Sprite):
                 self.dy = -2
                 self.dx = 2
                 self.wallJump_Right = True
+                self.walltimer = 1
 
-            elif self.contact_side == "Right" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.canJump == True:
+            #elif self.contact_side == "Right" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.canJump == True and self.walltimer == 0:
+            elif self.contact_side == "Right" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.walltimer == 0:
+                self.canJump = False
                 self.direction = "Left"
                 self.onplat = False
                 if self.jumptimer > JUMPLIMIT:
                     self.apex = True
-                    self.canJump = False
                 else:
                     self.jumptimer += 1
 
@@ -230,6 +244,7 @@ class Player(pygame.sprite.Sprite):
                 self.dy = -2
                 self.dx = -2
                 self.wallJump_LEFT = True
+                self.walltimer = 1
 
             else:
                 self.whichSlide()
