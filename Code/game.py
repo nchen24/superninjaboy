@@ -1,4 +1,4 @@
-import pygame, sys, os, Player, Wall, Spike, Shard, Shuriken, Spawner
+import pygame, sys, os, Player, Wall, Spike, Shard, Shuriken, Spawner, Block
 from pygame.locals import *
 from Player import *
 from Platform import *
@@ -7,12 +7,13 @@ from Spike import *
 from Shard import *
 from Shuriken import *
 from Spawner import *
+from Block import *
 
 # Constants
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BCK = "../assets/bluesky.gif"
-LEV = 6
+LEV = 9
 RES = (1024, 768)
 
 def quit():
@@ -27,6 +28,8 @@ def genwall(screen, level):
         for character in line:
             if character == "#":
                 walls.append(Wall(screen, hc*16, vc*16))
+            if character == "X":
+                blocks.append(Block(screen,hc*16, vc*16))
             elif character == "^":
                 spikes.append(Spike(screen, hc*16, vc*16, "U"))
             elif character == ">":
@@ -79,10 +82,11 @@ bestTimes = []
 for i in range(LEV):
     bestTimes.append(99999)
 
-for i in range(3, LEV):
+for i in range(8, LEV):
     LevelComplete = False
     time = 0
     walls  = []
+    blocks = []
     spikes = []
     pstart = []
     shards = []
@@ -161,6 +165,8 @@ for i in range(3, LEV):
                 onPlat = True
             if w.wall_active == True:
                 onWall = True
+        for b in blocks:
+            b.draw()
 
         if onPlat == False:
             snb.onplat = False
@@ -180,6 +186,9 @@ for i in range(3, LEV):
             for s in sp.shurikens:
                 if s.rect.colliderect(snb.rect):
                     snb.alive = False
+                for b in blocks:
+                    if s.rect.colliderect(b.rect):
+                        s.active = False
     
         for h in shards:
             h.draw()

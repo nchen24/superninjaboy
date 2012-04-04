@@ -25,5 +25,8 @@ class Spawner(pygame.sprite.Sprite):
 
         for s in self.shurikens:
             s.update()
-            s.draw()
+            if s.x < 0 or s.x > 1024 or s.y < 0 or s.y > 768 or not s.active:
+                del s
+            else:
+                s.draw()
 
