@@ -5,21 +5,21 @@ from Spritesheet import *
 ###############################
 # Constants for image loading #
 ###############################
-SS = "../assets/sprite_sheet_colors_fixed.png"
+SS = "../assets/player_standard.png"
 
-IDLE_L = (0,25,10,24)
-FALL_L = (134,25,18,24) 
-JUMP_L = (118,25,15,24) 
-WALK_L = ((11,25,13,24),(25,25,8,24),(34,25,10,24),(45,25,12,24))
-RUNN_L = ((58,25,16,24),(75,25,11,24),(87,25,11,24),(99,25,18,24))
-SLID_L = (153,25,11,24)
+IDLE_L = (0,25,18,23)
+FALL_L = (180,25,18,23) 
+JUMP_L = (160,25,18,23)
+WALK_L = ((20,25,18,23),(40,25,18,23),(60,25,18,23),(80,25,18,23))
+RUNN_L = ((100,25,18,23),(120,25,18,23),(140,25,18,23))
+SLID_L = (200,25,18,23)
 
-IDLE_R = (0,0,10,24)
-FALL_R = (134,0,18,24)
-JUMP_R = (118,0,15,24)
-WALK_R = ((11,0,13,24),(25,0,8,24),(34,0,10,24),(45,0,12,24)) 
-RUNN_R = ((58,0,16,24),(75,0,11,24),(87,0,11,24),(99,0,18,24))
-SLID_R = (153,0,11,24)
+IDLE_R = (0,0,18,23)
+FALL_R = (180,0,18,23)
+JUMP_R = (160,0,18,23)
+WALK_R = ((20,0,18,23),(40,0,18,23),(60,0,18,23),(80,0,18,23)) 
+RUNN_R = ((100,0,18,23),(120,0,18,23),(140,0,18,23))
+SLID_R = (200,0,18,23)
 
 ###################
 # Other constants #
@@ -91,10 +91,10 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
 
-        self.bottom = pygame.Rect((self.x + 2,(self.y + self.image_h - 5)), (self.image_w - 4, 5))
+        self.bottom = pygame.Rect((self.x + 7,(self.y + self.image_h - 14)), (self.image_w - 4, 5))
 
         # pygame.Rect takes ((start_x, start_y), (width, height))[EXPERIMENTAL]
-        self.boundwidth = 5
+        self.boundwidth = 2
         self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h-self.boundwidth))
         self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h - self.boundwidth))
 
@@ -108,6 +108,8 @@ class Player(pygame.sprite.Sprite):
         self.onplat = False
         self.onwall = False
         self.contact_side = None
+        self.wallJump_Left = False
+        self.wallJump_Right = False
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -118,15 +120,27 @@ class Player(pygame.sprite.Sprite):
             self.alive = False
 
         if pressed['Space'] == True and not(self.jumped) and not(self.apex) and self.canJump == True:
-            self.onplat = False
             if self.jumptimer > JUMPLIMIT:
                 self.apex = True
                 self.canJump = False
+                self.wallJump_Left = False
+                self.wallJump_Right = False
             else:
                 self.jumptimer += 1
 
             self.whichJump()
             self.dy = -2
+
+            if self.onplat == True:
+                print("on dat plat")
+
+            if self.wallJump_Left == True and self.onplat == False:
+                self.x += -2
+            elif self.wallJump_Right == True and self.onplat == False:
+                self.x += 2
+                print("Go Right!")
+
+            self.onplat = False
 
         elif self.onplat == False and self.onwall == False:
             self.whichFall()
@@ -179,7 +193,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.dx = 0
 
-
+        #HANDLES JUMPING OFF OF A WALL
         if self.onwall == True and self.onplat == False:
 
             if self.contact_side == "Left" and pressed['Right']:
@@ -188,6 +202,20 @@ class Player(pygame.sprite.Sprite):
             elif self.contact_side == "Right" and pressed['Left']:
                 self.dx = -2
 
+            elif self.contact_side == "Left" and pressed['Space'] and not(self.jumped) and not(self.apex) and self.canJump == True:
+                self.direction = "Right"
+                self.onplat = False
+                if self.jumptimer > JUMPLIMIT:
+                    self.apex = True
+                    self.canJump = False
+                else:
+                    self.jumptimer += 1
+
+                self.image = self.JUMP_RIGHT
+                self.dy = -2
+                self.dx = 2
+                self.wallJump_Right = True
+
             else:
                 self.whichSlide()
                 self.dy = 1.5
@@ -195,12 +223,11 @@ class Player(pygame.sprite.Sprite):
                 self.jumped = False
                 self.apex = False
                 self.jumptimer = 0
-                #self.canJump = True
-
-
+                self.canJump = True
 
 
         # Move the bounding box
+        self.image_w, self.image_h = self.image.get_size()
         self.x = self.x + self.dx
         self.y = self.y + self.dy
         self.rect = self.image.get_rect()
@@ -217,7 +244,7 @@ class Player(pygame.sprite.Sprite):
 
         self.left = pygame.Rect((self.x, self.y), (self.boundwidth, self.image_h - self.boundwidth))
         self.right = pygame.Rect((self.x + self.image_w - self.boundwidth, self.y), (self.boundwidth, self.image_h - self.boundwidth))
-        self.bottom = pygame.Rect((self.x+2,(self.y + self.image_h - 5)), (self.image_w-4, 5))
+        self.bottom = pygame.Rect((self.x+5,(self.y + self.image_h - 5)), (self.image_w-10, 5))
 
     def respawn(self, x, y):
         self.x = x
@@ -282,6 +309,7 @@ class Player(pygame.sprite.Sprite):
             self.runtimer += 1
         else:
             self.runtimer = 0
+
     def whichIdle(self):
         if self.direction == "Right":
             self.image = self.IDLE_RIGHT
