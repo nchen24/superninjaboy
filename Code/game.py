@@ -71,6 +71,11 @@ screen = pygame.display.get_surface()
 background = pygame.Surface(screen.get_size())
 background = pygame.image.load(BCK)
 
+pygame.mixer.init()
+#back_mus = pygame.mixer.Sound("back_mus.wav")
+back_mus = pygame.mixer.Sound("../assets/background_music.wav")
+back_mus.set_volume(.15)
+
 # The player
 pressed = {'Left' : False, 'Right' : False, 'Shift' : False, 'Space' : False}
 
@@ -82,7 +87,7 @@ bestTimes = []
 for i in range(LEV):
     bestTimes.append(99999)
 
-for i in range(8, LEV):
+for i in range(8,LEV):
     LevelComplete = False
     time = 0
     walls  = []
@@ -98,6 +103,8 @@ for i in range(8, LEV):
         levClock.tick()
         time = time + levClock.get_time()
         time_passed = clock.tick(FPS)
+
+        back_mus.play()
 
         #screen.fill(WHITE)
         screen.blit(background, (0,0))
