@@ -10,7 +10,7 @@ class Shard(pygame.sprite.Sprite):
         self.screen = screen
         self.ss = spritesheet("../assets/misc_sprite.png")
         self.IMGS = self.ss.images_at(SHARD, colorkey = -1)
-        self.image = self.IMGS[1] 
+        self.image = self.IMGS[0] 
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()

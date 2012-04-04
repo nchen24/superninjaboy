@@ -81,8 +81,8 @@ class Player(pygame.sprite.Sprite):
         self.ddx = .5
         self.ddy = 0
 
-        self.dx_max = 2
-        self.dy_max = 2
+        self.dx_max = 3
+        self.dy_max = 3
 
         self.image_w, self.image_h = self.image.get_size()
 

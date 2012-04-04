@@ -1,0 +1,9 @@
+Best time for level 0 is 18.54 seconds.
+Best time for level 1 is 6.77 seconds.
+Best time for level 2 is 6.9 seconds.
+Best time for level 3 is 3.85 seconds.
+Best time for level 4 is 19.43 seconds.
+Best time for level 5 is 99999.0 seconds.
+Best time for level 6 is 99999.0 seconds.
+Best time for level 7 is 99999.0 seconds.
+Best time for level 8 is 99999.0 seconds.

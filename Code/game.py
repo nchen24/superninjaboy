@@ -17,8 +17,36 @@ LEV = 9
 RES = (1024, 768)
 
 def quit():
+    saveHighscores()
     pygame.quit()
     sys.exit(0)
+
+def saveHighscores():
+    f  = open("../highscores.txt", "w")
+    for i in range(LEV):
+        f.write("Best time for level %d is %s seconds.\n" %(i, str(round(bestTimes[i],2))))
+        
+def levspeftext():
+    if i == 0:
+        shurikentext = font.render("Shurikens will kill you.  Note that \
+they can pass through green, but not gray blocks.", 1, BLACK)
+        screen.blit(shurikentext,(25,200))
+        spiketext = font.render ("Spikes will also kill you.", 1, BLACK)
+        screen.blit(spiketext,(25,450))
+        shardtext = font.render ("This is the goal, a piece of a legendary sword!", 1, BLACK)
+        screen.blit(shardtext,(450,500))
+
+        shards[0].image = shards[0].IMGS[2] 
+
+    if i == 1:
+        jumptext = font.render ("Jumping while sliding down the wall will cause you to wall jump.", 1, BLACK)
+        screen.blit(jumptext,(100,100))
+    if i == 3:
+        sprinttext = font.render("Hint: If you hold down L-Shift, you will sprint, moving twice as fast horizontally!", 1, BLACK)
+        screen.blit(sprinttext, (50,100))
+
+    if i == LEV-1:
+        shards[0].image = shards[0].IMGS[1]
 
 def genwall(screen, level):
     mapFile = open("../Levels/Level%s.txt" %level, 'r') 
@@ -89,6 +117,7 @@ for i in range(LEV):
     bestTimes.append(99999)
 
 for i in range(LEV):
+    
     LevelComplete = False
     time = 0
     walls  = []
@@ -100,6 +129,7 @@ for i in range(LEV):
     genwall(screen, i+1)
     snb = Player(screen, pstart[0], pstart[1])
     while LevelComplete == False:
+    #text = gameover_font.render("LEVEL COMPLETE!", 1, (251, 217, 21))
         # time things
         levClock.tick()
         time = time + levClock.get_time()
@@ -107,12 +137,12 @@ for i in range(LEV):
 
         back_mus.play()
 
-        #screen.fill(WHITE)
         screen.blit(background, (0,0))
         screen.blit(frame, (16,16))
         levelTime = font.render(str((time - time%10) / 1000.0), 1, (255, 0, 0))
         screen.blit(levelTime, (80, 58))
 
+        levspeftext()
 
         for w in walls:
             w.draw()
@@ -252,7 +282,6 @@ for i in range(LEV):
     #screen.fill((15,183,232))
     #
     ## Game over text
-    #text = gameover_font.render("LEVEL COMPLETE!", 1, (251, 217, 21))
     #screen.blit(text,(300,250))
     
     #pygame.display.flip()
@@ -260,6 +289,5 @@ for i in range(LEV):
     # Player beat the level
     if(time < bestTimes[i]):
         bestTimes[i] = ((time - time%10) / 1000.0)
-for i in range(LEV):
-    print "Best time for level %d is %s seconds." %(i, str(round(bestTimes[i],2)))
+quit()
 
