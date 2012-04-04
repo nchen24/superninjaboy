@@ -1,3 +1,10 @@
+April 4th 2012 00:47
+    -Added shuriken class
+    -Changed shard and spike to spritesheets
+    -Fixed standing on vertical walls
+    KNOWN BUGS
+    -Vertical collision with a wall causes weird shit to happen
+ 
 April 3rd 2012 21:22
     -Added best time list
 
