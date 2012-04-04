@@ -184,7 +184,7 @@ for i in range(8, LEV):
         for sp in spawners:
             sp.update()
             for s in sp.shurikens:
-                if s.rect.colliderect(snb.rect):
+                if s.rect.colliderect(snb.rect) and s.active == True:
                     snb.alive = False
                 for b in blocks:
                     if s.rect.colliderect(b.rect):

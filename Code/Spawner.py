@@ -4,7 +4,7 @@ from Spritesheet import *
 from Shuriken import *
 
 # Constants
-RATE = 50 
+RATE = 85 
 
 class Spawner(pygame.sprite.Sprite):
     '''Spawner is an invisible object that spawns 1 shuriken/RATE frames'''
@@ -25,7 +25,9 @@ class Spawner(pygame.sprite.Sprite):
 
         for s in self.shurikens:
             s.update()
-            if s.x < 0 or s.x > 1024 or s.y < 0 or s.y > 768 or not s.active:
+            if s.x < 0 or s.x > 1024 or s.y < 0 or s.y > 768:
+                del s
+            elif s.active == False:
                 del s
             else:
                 s.draw()

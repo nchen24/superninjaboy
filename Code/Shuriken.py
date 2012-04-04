@@ -28,8 +28,8 @@ class Shuriken(pygame.sprite.Sprite):
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()
-        self.rect.topleft = (self.x, self.y)
-        self.rect.bottomright = (self.x + self.image_w, self.y + self.image_h)
+        self.rect.topleft = (self.x+2, self.y+2)
+        self.rect.bottomright = (self.x + self.image_w-2, self.y + self.image_h-2)
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
