@@ -1,4 +1,4 @@
-import pygame, sys, os, Player, Wall, Spike, Shard, Shuriken
+import pygame, sys, os, Player, Wall, Spike, Shard, Shuriken, Spawner
 from pygame.locals import *
 from Player import *
 from Platform import *
@@ -6,11 +6,11 @@ from Wall import *
 from Spike import *
 from Shard import *
 from Shuriken import *
+from Spawner import *
 
 # Constants
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-SKY = "../assets/sky_background.png"
 BCK = "../assets/bluesky.gif"
 LEV = 6
 RES = (1024, 768)
@@ -40,8 +40,14 @@ def genwall(screen, level):
                 pstart.append(vc*16)
             elif character == "E":
                 shards.append(Shard(screen, hc*16, vc*16))
-            elif character == "K":
-                shuris.append(Shuriken(screen, hc*16, vc*16, "M"))
+            elif character == "1":
+                spawners.append(Spawner(screen, hc*16, vc*16, "U"))
+            elif character == "2":
+                spawners.append(Spawner(screen, hc*16, vc*16, "R"))
+            elif character == "3":
+                spawners.append(Spawner(screen, hc*16, vc*16, "D"))
+            elif character == "4":
+                spawners.append(Spawner(screen, hc*16, vc*16, "L"))
             hc +=1
         vc +=  1
 
@@ -80,7 +86,7 @@ for i in range(LEV):
     spikes = []
     pstart = []
     shards = []
-    shuris = []
+    spawners = []
     genwall(screen, i+1)
     snb = Player(screen, pstart[0], pstart[1])
     while LevelComplete == False:
@@ -95,9 +101,8 @@ for i in range(LEV):
         levelTime = font.render(str((time - time%10) / 1000.0), 1, (255, 0, 0))
         screen.blit(levelTime, (80, 58))
 
-        for s in shuris:
+        for s in spawners:
             s.update()
-            s.draw()
 
         for w in walls:
             w.draw()
