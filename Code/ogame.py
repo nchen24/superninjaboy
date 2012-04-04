@@ -1,11 +1,10 @@
-import pygame, sys, os, Player, Wall, Spike, Shard, Shuriken
+import pygame, sys, os, Player, Wall, Spike, Shard
 from pygame.locals import *
 from Player import *
 from Platform import *
 from Wall import *
 from Spike import *
 from Shard import *
-from Shuriken import *
 
 # Constants
 BLACK = (0, 0, 0)
@@ -98,7 +97,6 @@ for i in range(LEV):
                 w.floor_active = True
                 snb.wallJump_Left = False
                 snb.wallJump_Right = False
-                print("bottom")
             elif not(w.rect.colliderect(snb.bottom)) and w.floor_active == True:
                 w.floor_active = False
     
@@ -109,7 +107,7 @@ for i in range(LEV):
                 w.wall_active = True
                 snb.wallJump_Left = False
                 snb.wallJump_Right = False
-                print("left")
+                print("contact left")
             elif w.rect.colliderect(snb.right) and (w.wall_active == False or w.wall_active == True):
                 snb.contact_side = "Right"
                 snb.x = (w.x - snb.image_w + 1)
@@ -127,7 +125,10 @@ for i in range(LEV):
             #print("sliding")
         #else:
             #print("standing/falling")
-       
+        #if snb.onplat == True:
+            #print("on dat plat")
+        #else:
+            #print("tha plat ain't thea")
 
         for w in walls:
             if w.floor_active == True:
@@ -139,11 +140,6 @@ for i in range(LEV):
             snb.onplat = False
         if onWall == False:
             snb.onwall = False
-
-        #if snb.onplat == True:
-            #print("on dat plat")
-        #else:
-            #print("tha plat ain't thea")
 
         for s in spikes:
             s.draw()

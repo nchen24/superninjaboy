@@ -1,12 +1,16 @@
-import pygame, sys, os
+import pygame, sys, os, Spritesheet
 from pygame.locals import *
+from Spritesheet import *
 
+SHARD = ((0,36,16,16), (18,36,16,16))
 class Shard(pygame.sprite.Sprite):
     def __init__(self, screen, x,y):
         self.x = x
         self.y = y
         self.screen = screen
-        self.image = pygame.image.load("../assets/shard.gif")
+        self.ss = spritesheet("../assets/misc_sprite.png")
+        self.IMGS = self.ss.images_at(SHARD, colorkey = -1)
+        self.image = self.IMGS[1] 
         self.image_w, self.image_h = self.image.get_size()
 
         self.rect = self.image.get_rect()
