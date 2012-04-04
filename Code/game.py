@@ -71,7 +71,7 @@ bestTimes = []
 for i in range(LEV):
     bestTimes.append(99999)
 
-for i in range(LEV):
+for i in range(5, LEV):
     LevelComplete = False
     time = 0
     walls  = []
@@ -173,11 +173,6 @@ for i in range(LEV):
         snb.update(pressed, screenDimensions)
         snb.draw()
     
-        if snb.jumped == True:
-            print("true")
-        else:
-            print("false")
-
         pygame.display.flip()
 
         for event in pygame.event.get():
