@@ -41,8 +41,10 @@ pygame.init()
 # Clock stuff
 FPS = 60
 clock = pygame.time.Clock()
+levClock = pygame.time.Clock()
 
 gameover_font = pygame.font.Font(None, 50)
+font = pygame.font.Font(None, 36)
 
 screenDimensions = RES 
 window = pygame.display.set_mode(screenDimensions, pygame.RESIZABLE)
@@ -58,6 +60,7 @@ onPlat = False
 isDead = False
 onWall = False
 frame = pygame.image.load("../assets/frame.gif")
+time = 0
 
 
 for i in range(LEV):
@@ -69,12 +72,16 @@ for i in range(LEV):
     genwall(screen, i+1)
     snb = Player(screen, pstart[0], pstart[1])
     while LevelComplete == False:
+        levClock.tick()
+        time = time + levClock.get_time()
         # time things
         time_passed = clock.tick(FPS)
 
         #screen.fill(WHITE)
         screen.blit(background, (0,0))
         screen.blit(frame, (16,16))
+        levelTime = font.render(str((time - time%10) / 1000.0), 1, (255, 0, 0))
+        screen.blit(levelTime, (80, 58))
     
         for w in walls:
             w.draw()
@@ -136,6 +143,7 @@ for i in range(LEV):
                 LevelComplete = True
     
         if snb.alive == False:
+            time = 0 
             snb.respawn(pstart[0], pstart[1])
     
         snb.update(pressed, screenDimensions)
