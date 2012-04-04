@@ -2,7 +2,7 @@ import pygame, sys, os, Spritesheet
 from pygame.locals import *
 from Spritesheet import *
 
-SHARD = ((0,36,16,16), (18,36,16,16))
+SHARD = ((0,90,16,16), (18,90,16,16), (0,108,16,16))
 class Shard(pygame.sprite.Sprite):
     def __init__(self, screen, x,y):
         self.x = x

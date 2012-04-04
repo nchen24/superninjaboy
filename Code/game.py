@@ -12,7 +12,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 SKY = "../assets/sky_background.png"
 BCK = "../assets/bluesky.gif"
-LEV = 4
+LEV = 6
 RES = (1024, 768)
 
 def quit():
@@ -28,7 +28,13 @@ def genwall(screen, level):
             if character == "#":
                 walls.append(Wall(screen, hc*16, vc*16))
             if character == "^":
-                spikes.append(Spike(screen, hc*16, vc*16))
+                spikes.append(Spike(screen, hc*16, vc*16, "U"))
+            if character == ">":
+                spikes.append(Spike(screen, hc*16, vc*16, "R"))
+            if character == "V":
+                spikes.append(Spike(screen, hc*16, vc*16, "D"))
+            if character == "<":
+                spikes.append(Spike(screen, hc*16, vc*16, "L"))
             if character == "P":
                 pstart.append(hc*16)
                 pstart.append(vc*16)
