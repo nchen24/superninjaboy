@@ -5,7 +5,7 @@ from Spritesheet import *
 ###############################
 # Constants for image loading #
 ###############################
-SS = "../assets/player_standard.png"
+SS = "../Assets/player_standard.png"
 
 IDLE_L = (0,25,18,23)
 FALL_L = (180,25,18,23) 

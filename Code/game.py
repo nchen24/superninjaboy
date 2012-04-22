@@ -48,6 +48,16 @@ they can pass through green, but not gray blocks.", 1, BLACK)
     if i == LEV-1:
         shards[0].image = shards[0].IMGS[1]
 
+def clearbin(bin_wall):
+    ''' Clears the binary array of walls '''
+    for i in range(RES[1]):
+        for j in range (RES[0]):
+            bin_wall[i][j] = 0
+
+def setwallsprite(walls, bin_wall):
+    for i in walls:
+        i.setimage(bin_wall)
+
 def genwall(screen, level):
     mapFile = open("../Levels/Level%s.txt" %level, 'r') 
     vc = 0 
@@ -56,6 +66,7 @@ def genwall(screen, level):
         for character in line:
             if character == "#":
                 walls.append(Wall(screen, hc*16, vc*16))
+                bin_wall[hc][vc] = 1 
             if character == "X":
                 blocks.append(Block(screen,hc*16, vc*16))
             elif character == "^":
@@ -121,12 +132,14 @@ for i in range(LEV):
     LevelComplete = False
     time = 0
     walls  = []
+    bin_wall = [[0 for col in range(RES[0])] for row in range(RES[1])]
     blocks = []
     spikes = []
     pstart = []
     shards = []
     spawners = []
     genwall(screen, i+1)
+    setwallsprite(walls, bin_wall)
     snb = Player(screen, pstart[0], pstart[1])
     while LevelComplete == False:
     #text = gameover_font.render("LEVEL COMPLETE!", 1, (251, 217, 21))

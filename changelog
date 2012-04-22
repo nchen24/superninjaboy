@@ -1,3 +1,8 @@
+April 22nd 2012 02:41
+    -Made wall images dynamic to the adjacent tiles (credit to:
+     http://www.angryfishstudios.com/2011/04/adventures-in-bitmasking/ for
+     help with bitmasking)
+
 April 4th 2012 14:13
     -Background music added
     -High score saving added
